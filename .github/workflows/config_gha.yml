@@ -1,0 +1,38 @@
+
+name: TP2-ES2-TESTS
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build project
+      run: |
+        mkdir obj
+        mkdir bin
+        make
+
+    - name: Compile and Run Tests
+      shell: bash
+      run: |
+        if [[ $RUNNER_OS == "Windows" ]]; then
+          cmd /c bin\testRunner.exe tests\teste1.in
+          cmd /c bin\testRunner.exe tests\teste2.in
+          cmd /c bin\testRunner.exe tests\teste3.in
+          cmd /c bin\testRunner.exe tests\teste4.in
+          cmd /c bin\testRunner.exe tests\teste5.in
+        else
+          ./bin/testRunner tests/teste1.in
+          ./bin/testRunner tests/teste2.in
+          ./bin/testRunner tests/teste3.in
+          ./bin/testRunner tests/teste4.in
+          ./bin/testRunner tests/teste5.in
+        fi
+      
