@@ -1,5 +1,3 @@
-Trabalho Prático I - Engenharia de Software II
-
 1.1 - Integrantes Victor Della Croce Maltez - 2019042392
 
 1.2 - Sistema 
