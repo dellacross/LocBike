@@ -1,5 +1,5 @@
 
-name: TP2-ES2-TESTS
+name: TESTS
 
 on: [push, pull_request]
 
