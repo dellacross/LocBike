@@ -11,49 +11,49 @@ class Tests
         ~Tests(){};
 
         // *1*
-        void test_BikeOrVisitor();
+        void test_bike_or_visitor();
 
         // *2*
-        void test_ifExists();
+        void test_if_exists();
 
         // *3*
-        void test_getElementID();
+        void test_get_element_ID();
 
         // *4* 
-        void test_InitMapMatrix(Map* map);
+        void test_init_map_matrix(Map* map);
 
         // *5* 
         void test_cell_constructor();
 
         // *6*
-        void test_UpdateMapMatrixCell(Map* map);
+        void test_update_map_matrix_cell(Map* map);
 
         // *7*
-        void test_checkCell_out_of_range(Map* map);
+        void test_check_cell_out_of_range(Map* map);
 
         // *8*
-        void test_checkCell_negative(Map* map);
+        void test_check_cell_negative(Map* map);
 
         // *9*
-        void test_initVisitorsPreferenceMatrix(Map* map);
+        void test_init_visitors_preference_matrix(Map* map);
 
         // *10* 
-        void test_initBikesPreferenceMatrix(Map* map);
+        void test_init_bikes_preference_matrix(Map* map);
 
         // *11* 
-        void test_initCoordOfBikesVector(Map* map);
+        void test_init_coord_of_bikes_vector(Map* map);
 
         // *12* 
-        void test_initCoordOfVisitorsVector(Map* map);
+        void test_init_coord_of_visitors_vector(Map* map);
 
         // *13* 
-        void test_allNoVisited(Map* map);
+        void test_all_no_visited(Map* map);
 
         // *14* 
-        void test_updateVisitorsPreferenceMatrix(Map* map);
+        void test_update_visitors_preference_matrix(Map* map);
 
         // *15* 
-        void test_addCoordOfBike(Map* map);
+        void test_add_coord_of_bike(Map* map);
 
         // *16*
         void test_cell_with_obstacle();

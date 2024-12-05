@@ -75,7 +75,7 @@ void setMapMatrixCells(fstream &file, Map &map, int xAxis, int yAxis, int number
 int numberOfElements = -1, x_dimension = -1, y_dimension = -1;
 
 // *1* 
-void Tests::test_BikeOrVisitor(){
+void Tests::test_bike_or_visitor(){
     assert(BikeOrVisitor('a') == false);
     assert(BikeOrVisitor('d') == false);    
     assert(BikeOrVisitor('2') == true);
@@ -83,7 +83,7 @@ void Tests::test_BikeOrVisitor(){
 }
 
 // *2*
-void Tests::test_ifExists() {
+void Tests::test_if_exists() {
     vector<int> _vector;
     _vector.push_back(1);
     _vector.push_back(2);
@@ -96,7 +96,7 @@ void Tests::test_ifExists() {
 }
 
 // *3*
-void Tests::test_getElementID() {
+void Tests::test_get_element_ID() {
     assert(getElementID('0') == 1);
     assert(getElementID('2') == 3);
     assert(getElementID('a') == 1);
@@ -104,7 +104,7 @@ void Tests::test_getElementID() {
 }
 
 // *4* 
-void Tests::test_InitMapMatrix(Map* map) {
+void Tests::test_init_map_matrix(Map* map) {
     assert(map->dimX == 4);
     assert(map->dimY == 4);
     assert(map->numElements == 3);
@@ -121,7 +121,7 @@ void Tests::test_cell_constructor() {
 }
 
 // *6*
-void Tests::test_UpdateMapMatrixCell(Map* map) {
+void Tests::test_update_map_matrix_cell(Map* map) {
     Map* _map = map;
     _map->updateMapMatrixCell(2, 3, true, -1, -1);
     _map->updateMapMatrixCell(1, 4, false, 2, -1);
@@ -133,7 +133,7 @@ void Tests::test_UpdateMapMatrixCell(Map* map) {
 }
 
 // *7*
-void Tests::test_checkCell_out_of_range(Map* map) {
+void Tests::test_check_cell_out_of_range(Map* map) {
     Map* _map = map;
     bool invalid_out_of_range_1 = _map->checkCell(11, 3);
     bool invalid_out_of_range_2 = _map->checkCell(1, 13);
@@ -143,7 +143,7 @@ void Tests::test_checkCell_out_of_range(Map* map) {
 }
 
 // *8*
-void Tests::test_checkCell_negative(Map* map) {
+void Tests::test_check_cell_negative(Map* map) {
     bool invalid_negative_1 = map->checkCell(-1, 3);
     bool invalid_negative_2 = map->checkCell(1, -3);
 
@@ -152,7 +152,7 @@ void Tests::test_checkCell_negative(Map* map) {
 }
 
 // *9*
-void Tests::test_initVisitorsPreferenceMatrix(Map* map) {
+void Tests::test_init_visitors_preference_matrix(Map* map) {
     Map* _map = map;
     _map->initVisitorsPreferenceMatrix();
     bool _nullptr = false;
@@ -161,7 +161,7 @@ void Tests::test_initVisitorsPreferenceMatrix(Map* map) {
 }
 
 // *10* 
-void Tests::test_initBikesPreferenceMatrix(Map* map) {
+void Tests::test_init_bikes_preference_matrix(Map* map) {
     Map* _map = map;
     _map->initBikesPreferenceMatrix();
     bool _nullptr = false;
@@ -170,7 +170,7 @@ void Tests::test_initBikesPreferenceMatrix(Map* map) {
 }
 
 // *11* 
-void Tests::test_initCoordOfBikesVector(Map* map) {
+void Tests::test_init_coord_of_bikes_vector(Map* map) {
     Map* _map = map;
     _map->initCoordOfBikesVector();
     bool _nullptr = false;
@@ -179,7 +179,7 @@ void Tests::test_initCoordOfBikesVector(Map* map) {
 }
 
 // *12* 
-void Tests::test_initCoordOfVisitorsVector(Map* map) {
+void Tests::test_init_coord_of_visitors_vector(Map* map) {
     Map* _map = map;
     _map->initCoordOfVisitorsVector();
     bool _nullptr = false;
@@ -188,7 +188,7 @@ void Tests::test_initCoordOfVisitorsVector(Map* map) {
 }
 
 // *13* 
-void Tests::test_allNoVisited(Map* map) {
+void Tests::test_all_no_visited(Map* map) {
     Map* _map = map;
     _map->mapMatrix[0][0].visited = true;
     _map->mapMatrix[1][2].visited = true;
@@ -208,7 +208,7 @@ void Tests::test_allNoVisited(Map* map) {
 }
 
 // *14* 
-void Tests::test_updateVisitorsPreferenceMatrix(Map* map) {
+void Tests::test_update_visitors_preference_matrix(Map* map) {
     Map* _map = map;
     _map->initVisitorsPreferenceMatrix();
     _map->updateVisitorsPreferenceMatrix(0,0,0,2);
@@ -235,7 +235,7 @@ void Tests::test_updateVisitorsPreferenceMatrix(Map* map) {
 }
 
 // *15* 
-void Tests::test_addCoordOfBike(Map* map) {
+void Tests::test_add_coord_of_bike(Map* map) {
     Map* _map = map;
     _map->addCoordOfBike(0,2,2);
     _map->addCoordOfBike(1,0,3);
@@ -253,14 +253,14 @@ void Tests::test_addCoordOfBike(Map* map) {
 
 // *16*
 void Tests::test_cell_with_obstacle() {
-    Cell cell = Cell(1, 1, true, false);
+    Cell cell = Cell(-1, -1, true, false);
     assert(cell.obstacle == true);
     assert(cell.visited == false);
 }
 
 // *17*
 void Tests::test_map_custom_dimensions() {
-    Map* map = new Map(5, 6); // Mapa 5x6
+    Map* map = new Map(5, 6);
     assert(map->dimX == 5);
     assert(map->dimY == 6);
 }
@@ -269,14 +269,14 @@ void Tests::test_map_custom_dimensions() {
 void Tests::test_bike_preferences_initialization() {
     Map* map = new Map(4, 4);
     map->initBikesPreferenceMatrix();
-    assert(map->bikesPreferenceMatrix != nullptr);  // Verificar se a matriz foi inicializada
+    assert(map->bikesPreferenceMatrix != nullptr);  
 }
 
 // *19*
 void Tests::test_visitor_preferences_initialization() {
     Map* map = new Map(4, 4);
     map->initVisitorsPreferenceMatrix();
-    assert(map->visitorsPreferenceMatrix != nullptr);  // Verificar se a matriz foi inicializada
+    assert(map->visitorsPreferenceMatrix != nullptr);  
 }
 
 // *20*
@@ -298,9 +298,9 @@ void Tests::test_cell_update_with_obstacle() {
 // *22*
 void Tests::test_bike_removal() {
     Map* map = new Map(4, 4);
-    map->mapMatrix[2][3].bikeID = 3;  // Definindo uma bicicleta na célula
-    map->mapMatrix[2][3].bikeID = -1;  // Removendo a bicicleta
-    assert(map->mapMatrix[2][3].bikeID == -1);  // Verificar se a célula está vazia
+    map->mapMatrix[2][3].bikeID = 3;  
+    map->mapMatrix[2][3].bikeID = -1;  
+    assert(map->mapMatrix[2][3].bikeID == -1);  
 }
 
 // *23*
@@ -314,8 +314,8 @@ void Tests::test_cell_update_with_bike() {
 void Tests::test_bike_move() {
     Map* map = new Map(4, 4);
     map->mapMatrix[2][3].bikeID = 5;
-    map->mapMatrix[2][3].bikeID = -1;  // Remover bicicleta da célula original
-    map->mapMatrix[1][2].bikeID = 5;  // Mover bicicleta para a nova célula
+    map->mapMatrix[2][3].bikeID = -1;  
+    map->mapMatrix[1][2].bikeID = 5;  
     assert(map->mapMatrix[1][2].bikeID == 5);
 }
 
@@ -330,8 +330,8 @@ void Tests::test_cell_update_with_visitor() {
 void Tests::test_visitor_move() {
     Map* map = new Map(4, 4);
     map->mapMatrix[2][3].visitorID = 7;
-    map->mapMatrix[2][3].visitorID = -1;  // Remover visitante da célula original
-    map->mapMatrix[1][2].visitorID = 7;  // Mover visitante para a nova célula
+    map->mapMatrix[2][3].visitorID = -1;  
+    map->mapMatrix[1][2].visitorID = 7;  
     assert(map->mapMatrix[1][2].visitorID == 7);
 }
 
@@ -346,14 +346,14 @@ void Tests::test_bike_coordinates_initialization() {
 void Tests::test_check_valid_cell() {
     Map* map = new Map(4, 4);
     bool validCell = map->checkCell(1, 2);
-    assert(validCell == true);  // Célula (1, 2) deve ser válida
+    assert(validCell == true);  
 }
 
 // *29*
 void Tests::test_check_invalid_cell() {
     Map* map = new Map(4, 4);
     bool invalidCell = map->checkCell(5, 5);
-    assert(invalidCell == false);  // Célula (5, 5) deve ser inválida
+    assert(invalidCell == false);  
 }
 
 // *30*
@@ -361,8 +361,8 @@ void Tests::test_cell_reset() {
     Map* map = new Map(4, 4);
     map->mapMatrix[2][3].bikeID = 5;
     map->mapMatrix[2][3].visitorID = 8;
-    map->mapMatrix[2][3].bikeID = -1;  // Remover bicicleta
-    map->mapMatrix[2][3].visitorID = -1;  // Remover visitante
+    map->mapMatrix[2][3].bikeID = -1;  
+    map->mapMatrix[2][3].visitorID = -1; 
     assert(map->mapMatrix[2][3].bikeID == -1);
     assert(map->mapMatrix[2][3].visitorID == -1);
 }
@@ -475,49 +475,49 @@ int main(int argc, char** argv) {
     cout << "Starting unit tests..." << "\n";
 
     // *1*
-    tests.test_BikeOrVisitor();
+    tests.test_bike_or_visitor();
 
     // *2*
-    tests.test_ifExists();
+    tests.test_if_exists();
 
     // *3*
-    tests.test_getElementID();
+    tests.test_get_element_ID();
 
     // *4* 
-    tests.test_InitMapMatrix(map);
+    tests.test_init_map_matrix(map);
 
     // *5* 
     tests.test_cell_constructor();
 
     // *6*
-    tests.test_UpdateMapMatrixCell(map);
+    tests.test_update_map_matrix_cell(map);
 
     // *7*
-    tests.test_checkCell_out_of_range(map);
+    tests.test_check_cell_out_of_range(map);
 
     // *8*
-    tests.test_checkCell_negative(map);
+    tests.test_check_cell_negative(map);
 
     // *9*
-    tests.test_initVisitorsPreferenceMatrix(map);
+    tests.test_init_visitors_preference_matrix(map);
 
     // *10* 
-    tests.test_initBikesPreferenceMatrix(map);
+    tests.test_init_bikes_preference_matrix(map);
 
     // *11* 
-    tests.test_initCoordOfBikesVector(map);
+    tests.test_init_coord_of_bikes_vector(map);
 
     // *12* 
-    tests.test_initCoordOfVisitorsVector(map);
+    tests.test_init_coord_of_visitors_vector(map);
 
     // *13* 
-    tests.test_allNoVisited(map);
+    tests.test_all_no_visited(map);
 
     // *14* 
-    tests.test_updateVisitorsPreferenceMatrix(map);
+    tests.test_update_visitors_preference_matrix(map);
 
     // *15* 
-    tests.test_addCoordOfBike(map);
+    tests.test_add_coord_of_bike(map);
 
     // *16*
     tests.test_cell_with_obstacle();
