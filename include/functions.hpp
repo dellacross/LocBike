@@ -1,8 +1,9 @@
 #include <sstream>
 #include <fstream>
 #include <string>
-#include "map.hpp"
 #include <queue>
+#include "map.hpp"
+
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 

@@ -1,8 +1,5 @@
-#include "map.hpp"
 #include "tests.hpp"
 #include "functions.hpp"
-#include <sstream>
-#include <fstream>
 #include <cassert>
 #include <utility> 
 #include <algorithm>
