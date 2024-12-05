@@ -35,6 +35,8 @@ jobs:
           ./bin/testRunner tests/teste4.in
           ./bin/testRunner tests/teste5.in
         fi
-    - name: Codecov
+    - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v5.0.7
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
             
