@@ -20,7 +20,7 @@ class Tests
         // *2*
         void test_if_exists();
 
-        void test_if_exists_emtpy_vectior();
+        void test_if_exists_empty_vector();
 
         // *3*
         void test_get_element_ID();

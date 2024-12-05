@@ -28,7 +28,7 @@ void Tests::test_if_exists() {
     assert(ifExists(4, _vector) == false);
 }
 
-void Tests::test_if_exists_emtpy_vectior() {
+void Tests::test_if_exists_empty_vector() {
     vector<int> _vector;
     assert(ifExists(1, _vector) == false);
 }
