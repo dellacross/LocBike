@@ -14,6 +14,8 @@ class Tests
 
         ~Tests(){};
 
+        void test_map_contructor();
+
         // *1*
         void test_bike_or_visitor();
 

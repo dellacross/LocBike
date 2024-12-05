@@ -8,6 +8,14 @@
 
 int numberOfElements = -1, x_dimension = -1, y_dimension = -1;
 
+void Tests::test_map_contructor() {
+    Map* map;
+    map = new Map(4,4);
+
+    assert(map->getDimX() == 4);
+    assert(map->getDimY() == 4);
+}
+
 // *1* 
 void Tests::test_bike_or_visitor(){
     assert(BikeOrVisitor('a') == false);
@@ -30,6 +38,8 @@ void Tests::test_if_exists() {
 
 void Tests::test_if_exists_empty_vector() {
     vector<int> _vector;
+    _vector.push_back(1);
+    _vector.pop_back();
     assert(ifExists(1, _vector) == false);
 }
 
