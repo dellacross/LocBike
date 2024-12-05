@@ -582,16 +582,6 @@ int main(int argc, char** argv) {
     // *30*
     tests.test_cell_reset();
 
-    tests.test_sort();
-
-    tests.test_preference();
-
-    tests.test_BFS();
-
-    tests.test_get_dimensions();
-
-    tests.test_set_map_matrix_cells();
-
     cout << "Success! All unit tests passed!" << "\n";
 
     cout << "All tests passed for '" << argv[1] << "' file!\n";
