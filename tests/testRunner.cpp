@@ -269,7 +269,7 @@ void Tests::test_set_map_matrix_cells() {
 
     assert(map.mapMatrix[1][0].obstacle == true);
     assert(map.mapMatrix[0][0].obstacle == false);
-    assert(map.mapMatrix[0][3].bikeID == 1);
+    assert(map.mapMatrix[0][3].bikeID == 2);
     assert(map.mapMatrix[0][0].visitorID == 1);
 }
 
