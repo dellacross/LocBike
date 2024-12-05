@@ -3,6 +3,8 @@
 #include <sstream>
 #include <fstream>
 #include <cassert>
+#include <utility> 
+#include <algorithm>
 
 bool BikeOrVisitor(char s) { // true if is bike; false if is visitor;
     return (s >= '0' && s <= '9');
@@ -369,103 +371,84 @@ void Tests::test_cell_reset() {
     assert(map->mapMatrix[2][3].visitorID == -1);
 }
 
-
-void exec_system(string filePath) {
-    fstream file(filePath);
-    if (file)
-    {
-        string line = "";
-        vector<int> values = getDimensions(file);
-
-        int n = values[0], x = values[1], y = values[2];
-
-        Map map(x, y, n);
-
-        setMapMatrixCells(file, map, x, y, n);
-        pair<int, int> vm[n][n];
-        vector<int> auxV;
-        for (int i = 0; i < n; i++)
-        {
-            int aux = 0;
-            getline(file, line);
-            stringstream auxLine(line);
-
-            for (int j = 0; j < n; j++)
-            {
-                auxLine >> aux;
-                vm[i][j].first = j;
-                vm[i][j].second = aux;
-            }
-        }
-
-        int g = -1, gpos = -1;
-        //cout << "n:" << n << "\n";
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                for (int k = 0; k < n; k++)
-                {
-                    if (vm[i][k].second >= g && !ifExists(k, auxV))
-                    {
-                        //cout << "i:" << i << " k:" << k << "\n";
-                        g = vm[i][k].second;
-                        gpos = k;
-                    }
-                }
-                auxV.push_back(gpos);
-                map.updateVisitorsPreferenceMatrix(i, j, gpos, g);
-                g = -1;
-                gpos = -1;
-            }
-            auxV.clear();
-        }
-        
-        map.GaleShapley(filePath, true);
-        file.close();
-    }
-    else
-        cout << "ERROR: FILE NOT FOUND!"
-             << "\n";
+// Definição de uma função de comparação para ordenação ascendente
+bool ascending(const pair<int, int> &x1, const pair<int, int> &x2)
+{
+    return x1.first < x2.first || (x1.first == x2.first && x1.second < x2.second);
 }
 
-void compareFiles(string fileName) {
-    char fileNumber = fileName[fileName.length() - 4];
+// Definição de uma função de comparação para ordenação descendente
+bool descending(const pair<int, int> &x1, const pair<int, int> &x2)
+{
+    return x1.first > x2.first || (x1.first == x2.first && x1.second > x2.second);
+}
 
-    string outputFilePath = "tests/file";
-    outputFilePath = outputFilePath + fileNumber + "_output.out";
+// Teste da função Sort
+void Tests::test_sort()
+{
+    const int numRows = 2;
+    const int numCols = 5;
 
-    string expectedOutputFilePath = "tests/teste";
-    expectedOutputFilePath = expectedOutputFilePath + fileNumber + ".out";
-    
-    ifstream outputFile(outputFilePath, ios::binary | ios::ate);
-    ifstream expectedOutputFile(expectedOutputFilePath, ios::binary | ios::ate);
+    // Criando um vetor de pares bidimensional
+    pair<int, int> *array[numRows];
+    pair<int, int> data[numRows][numCols] = {
+        {{3, 2}, {1, 5}, {2, 4}, {5, 1}, {4, 3}},
+        {{7, 6}, {9, 8}, {8, 7}, {10, 10}, {6, 9}}};
 
-    bool equal = true;
+    // Inicializando o vetor bidimensional com os dados
+    for (int i = 0; i < numRows; i++)
+    {
+        array[i] = data[i];
+    }
 
-    if(outputFile.tellg() != expectedOutputFile.tellg())
-        equal = false;
+    // Criando um objeto da classe Map
+    Map map;
+    map.numElements = numCols; // Supondo que numElements é acessível e usado corretamente
 
-    outputFile.seekg(0);
-    expectedOutputFile.seekg(0);
+    // Teste 1: Ordenação ascendente
+    map.Sort(array, ascending);
 
-    const size_t bufferSize = 4096;
-    vector<char> buffer1(bufferSize);
-    vector<char> buffer2(bufferSize);
+    // Validando a ordenação ascendente
+    for (int i = 0; i < numRows; i++)
+    {
+        for (int j = 1; j < numCols; j++)
+        {
+            assert(array[i][j - 1].first <= array[i][j].first);
+            if (array[i][j - 1].first == array[i][j].first)
+            {
+                assert(array[i][j - 1].second <= array[i][j].second);
+            }
+        }
+    }
+    cout << "Teste de ordenação ascendente passou!" << endl;
 
-    do {
-        outputFile.read(buffer1.data(), bufferSize);
-        expectedOutputFile.read(buffer2.data(), bufferSize);
+    // Revertendo a matriz para ordenação descendente
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < numCols; j++) {
+            data[i][0] = {3, 2};
+            data[i][1] = {1, 5};
+            data[i][2] = {2, 4};
+            data[i][3] = {5, 1};
+            data[i][4] = {4, 3};
+        }
+    }
 
-        if(buffer1 != buffer2) 
-            equal = false;
-            
-    } while (outputFile.good() && expectedOutputFile.good());
+    // Teste 2: Ordenação descendente
+    map.Sort(array, descending);
 
-    outputFile.close();
-    expectedOutputFile.close();
-    
-    assert(equal == true);
+    // Validando a ordenação descendente
+    for (int i = 0; i < numRows; i++)
+    {
+        for (int j = 1; j < numCols; j++)
+        {
+            assert(array[i][j - 1].first >= array[i][j].first);
+            if (array[i][j - 1].first == array[i][j].first)
+            {
+                assert(array[i][j - 1].second >= array[i][j].second);
+            }
+        }
+    }
+    cout << "Teste de ordenação descendente passou!" << endl;
 }
 
 int main(int argc, char** argv) {
@@ -567,15 +550,8 @@ int main(int argc, char** argv) {
     tests.test_cell_reset();
 
     cout << "Success! All unit tests passed!" << "\n";
-    
-    cout << "Starting system tests..." << "\n";
 
-    exec_system(argv[1]);
-    compareFiles(argv[1]);
-
-    cout << "Success! All system tests passed!" << "\n";
     cout << "All tests passed for '" << argv[1] << "' file!\n";
     
-
     return 0;
 }

@@ -30,4 +30,4 @@ $(BIN)/tp01: $(OBJS)
 	$(CC) -o $(BIN)/tp01 $(CFLAGS) $(OBJS) $(LIBS)
 
 clean:
-	rm -f $(OBJS) $(BIN)/* $(TESTS)/*_output.out *.gcno *.gcda
+	rm -f $(OBJS) $(BIN)/* $(TESTS)/*_output.out $(OBJ)/*

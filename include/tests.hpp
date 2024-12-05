@@ -100,6 +100,7 @@ class Tests
         // *30*
         void test_cell_reset();
 
+        void test_sort();
 
 
     friend class Map;

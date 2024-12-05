@@ -60,8 +60,7 @@ class Map
          * @param bikId id of the bike
          * @param bikePref visitor's preference in relation to the bike with id i
          */
-        void updateVisitorsPreferenceMatrix(int i, int j, int bikeId, int bikePref)
-        {
+        void updateVisitorsPreferenceMatrix(int i, int j, int bikeId, int bikePref) {
             visitorsPreferenceMatrix[i][j].first = bikeId;
             visitorsPreferenceMatrix[i][j].second = bikePref;
         };
