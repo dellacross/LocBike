@@ -75,21 +75,4 @@ void setMapMatrixCells(istream &file, Map &map, int xAxis, int yAxis, int number
     }
 }
 
-void stableMatchingOutput(int *v, int n, string fileName, bool testRun)
-{
-    char fileNumber = fileName[fileName.length() - 4];
-    string filePath = "tests/file";
-    filePath = filePath + fileNumber + "_output.out";
-    ofstream output_file(filePath);
-
-    char aux = 'a';
-    for (int i = 0; i < n; i++)
-    {   
-        if(!testRun) cout << aux << " " << v[i] << "\n"; // print the output
-        if(testRun) output_file << aux << " " << v[i] << "\n";
-        aux++;
-    }
-    output_file.close();
-}
-
-#endif // FUNCTIONS_H
+#endif

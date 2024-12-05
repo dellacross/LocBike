@@ -6,6 +6,8 @@
 
 using namespace std;
 
+void stableMatchingOutput(int *v, int n, string fileName, bool testRun);
+
 class Map
 {
     public:

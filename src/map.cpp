@@ -164,22 +164,7 @@ bool Map::preference(int idB, int propose, int current)
     return false;
 }
 
-void stableMatchingOutput(int *v, int n, string fileName, bool testRun)
-{
-    char fileNumber = fileName[fileName.length() - 4];
-    string filePath = "tests/file";
-    filePath = filePath + fileNumber + "_output.out";
-    ofstream output_file(filePath);
 
-    char aux = 'a';
-    for (int i = 0; i < n; i++)
-    {   
-        if(!testRun) cout << aux << " " << v[i] << "\n"; // print the output
-        if(testRun) output_file << aux << " " << v[i] << "\n";
-        aux++;
-    }
-    output_file.close();
-}
 
 void Map::GaleShapley(string fileName, bool testRun)
 {
@@ -260,6 +245,23 @@ void Map::GaleShapley(string fileName, bool testRun)
     }
 
     stableMatchingOutput(visitors, numElements, fileName, testRun); // print the output
+}
+
+void stableMatchingOutput(int *v, int n, string fileName, bool testRun) {
+    char fileNumber = fileName[fileName.length() - 4];
+    string filePath = "tests/file";
+    filePath = filePath + fileNumber + "_output.out";
+    ofstream output_file(filePath);
+
+    char aux = 'a';
+    for (int i = 0; i < n; i++)
+    {   
+        if(!testRun) cout << aux << " " << v[i] << "\n"; // print the output
+        if(testRun) output_file << aux << " " << v[i] << "\n";
+        aux++;
+    }
+
+    output_file.close();
 }
 
 void Map::partition(int left, int right, int &i, int &j, pair<int, int> *v, bool (*comp)(const pair<int, int> &x1, const pair<int, int> &x2))

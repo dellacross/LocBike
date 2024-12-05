@@ -297,17 +297,17 @@ void Tests::test_preference() {
 void Tests::test_stable_matching_output() {
     int v[] = {1, 0};
     int n = 2;
-    std::string fileName = "test_file.txt";
+    string fileName = "test_file.txt";
     bool testRun = false;
 
-    std::stringstream buffer;
-    std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
+    stringstream buffer;
+    streambuf *old = cout.rdbuf(buffer.rdbuf());
 
     stableMatchingOutput(v, n, fileName, testRun);
 
-    std::cout.rdbuf(old);
+    cout.rdbuf(old);
 
-    std::string expectedOutput = "a 1\nb 0\n";
+    string expectedOutput = "a 1\nb 0\n";
     assert(buffer.str() == expectedOutput);
 }
 
