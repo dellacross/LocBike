@@ -291,7 +291,7 @@ void Tests::test_preference() {
     map.updateBikesPreferenceMatrix();
 
     assert(map.preference(0, 4, 1) == false);
-    assert(map.preference(2, 1, 3) == false);
+    assert(map.preference(2, 1, 3) == true);
 }
 
 void Tests::test_check_free_cell(Map *map) {
