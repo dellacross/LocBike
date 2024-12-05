@@ -261,14 +261,14 @@ void Tests::test_get_dimensions() {
 }
 
 void Tests::test_set_map_matrix_cells() {
-    std::istringstream input("2\n4 4\n----\n*1--\n--2*\n----\n");
+    std::istringstream input("2\n4 4\na**1\n--**\n*-**\nb*0*\n");
     Map map(4, 4, 2);
     setMapMatrixCells(input, map, 4, 4, 2);
 
-    assert(map.mapMatrix[0][0].obstacle == true);
-    assert(map.mapMatrix[1][1].obstacle == false);
-    assert(map.mapMatrix[1][1].bikeID == 1);
-    assert(map.mapMatrix[2][2].visitorID == 2);
+    assert(map.mapMatrix[1][0].obstacle == true);
+    assert(map.mapMatrix[0][0].obstacle == false);
+    assert(map.mapMatrix[0][3].bikeID == 1);
+    assert(map.mapMatrix[0][0].visitorID == 1);
 }
 
 void Tests::test_check_free_cell(Map *map) {
