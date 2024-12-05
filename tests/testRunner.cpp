@@ -1,3 +1,4 @@
+#include "map.hpp"
 #include "tests.hpp"
 #include "functions.hpp"
 #include <cassert>
