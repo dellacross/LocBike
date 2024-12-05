@@ -235,6 +235,34 @@ void Tests::test_BFS() {
     assert(distance == 4);
 }
 
+void Tests::test_BFS_without_pair() {
+    Map* map = new Map(3, 3, 1);
+
+    map->updateMapMatrixCell(0, 0, false, 1, -1);
+    map->updateMapMatrixCell(0, 1, true, -1, -1);
+    map->updateMapMatrixCell(1, 2, true, -1, -1);
+    map->updateMapMatrixCell(0, 2, false, -1, 1);
+
+    int distance = map->BFS(0, 0, 0, 2);
+
+    assert(distance == -1);
+}
+
+void Tests::test_get_dimensions() {
+    string mockFileContent = "10\n3 4\n";
+
+    stringstream mockFile(mockFileContent);
+    fstream file;
+    file << mockFile.rdbuf();
+    file.seekg(0, ios::beg);
+
+    vector<int> result = getDimensions(file);
+
+    vector<int> expected = {10, 3, 4};
+
+    assert(result == expected);
+}
+
 void Tests::test_check_free_cell(Map *map) {
     Map* _map = map;
     map->initMapMatrix();
@@ -321,7 +349,12 @@ int main(int argc, char** argv) {
     // *22*
     tests.test_constructor();
 
+    // *23*
     tests.test_BFS();
+
+    tests.test_get_dimensions();
+
+    tests.test_BFS_without_pair();
 
     //tests.test_check_free_cell(map);
 

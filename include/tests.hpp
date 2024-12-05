@@ -82,7 +82,12 @@ class Tests
         // *22*
         void test_constructor();
 
+        // *23*
         void test_BFS();
+
+        void test_BFS_without_pair();
+
+        void test_get_dimensions();
 
         void test_check_free_cell(Map *map);
 
