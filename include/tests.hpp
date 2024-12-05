@@ -24,7 +24,9 @@ class Tests
         void test_if_exists_empty_vector();
 
         // *4*
-        void test_get_element_ID();
+        void test_get_bike_element_ID();
+
+        void test_get_visitor_element_ID();
 
         // *5* 
         void test_init_map_matrix(Map* map);

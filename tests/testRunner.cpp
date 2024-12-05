@@ -29,16 +29,18 @@ void Tests::test_if_exists() {
 }
 
 // *3*
-
 void Tests::test_if_exists_empty_vector() {
-    vector<int> _vector;
+    vector<int> _vector(0);
     assert(ifExists(1, _vector) == false);
 }
 
 // *4*
-void Tests::test_get_element_ID() {
+void Tests::test_get_bike_element_ID() {
     assert(getElementID('0') == 1);
     assert(getElementID('2') == 3);
+}
+
+void Tests::test_get_visitor_element_ID() {
     assert(getElementID('a') == 1);
     assert(getElementID('b') == 2);
 }
