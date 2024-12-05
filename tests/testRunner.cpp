@@ -261,9 +261,11 @@ void Tests::test_get_dimensions() {
 }
 
 void Tests::test_set_map_matrix_cells() {
-    std::istringstream input("2\n4 4\na**1\n--**\n*-**\nb*0*\n");
+    string mockFileContent = "2\n4 4\na**1\n--**\n*-**\nb*0*\n";
+    stringstream mockFile(mockFileContent);
+    
     Map map(4, 4, 2);
-    setMapMatrixCells(input, map, 4, 4, 2);
+    setMapMatrixCells(mockFile, map, 4, 4, 2);
 
     assert(map.mapMatrix[1][0].obstacle == true);
     assert(map.mapMatrix[0][0].obstacle == false);
