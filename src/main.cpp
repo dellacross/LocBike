@@ -1,7 +1,6 @@
 #include <sstream>
 #include <fstream>
 #include <string>
-#include "map.hpp"
 #include "functions.hpp"
 
 int main(int argc, char *argv[])
