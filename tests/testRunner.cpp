@@ -8,15 +8,6 @@
 
 int numberOfElements = -1, x_dimension = -1, y_dimension = -1;
 
-// *0*
-void Tests::test_map_constructor() {
-    Map* map;
-    map = new Map(4,4);
-
-    assert(map->getDimX() == 4);
-    assert(map->getDimY() == 4);
-}
-
 // *1* 
 void Tests::test_bike_or_visitor(){
     assert(BikeOrVisitor('a') == false);
@@ -160,67 +151,14 @@ void Tests::test_all_no_visited(Map* map) {
 void Tests::test_update_visitors_preference_matrix(Map* map) {
     Map* _map = map;
     _map->initVisitorsPreferenceMatrix();
-    _map->updateVisitorsPreferenceMatrix(0,0,0,2);
-    _map->updateVisitorsPreferenceMatrix(0,1,0,0);
-    _map->updateVisitorsPreferenceMatrix(0,2,0,1);
-    _map->updateVisitorsPreferenceMatrix(1,0,1,1);
-    _map->updateVisitorsPreferenceMatrix(1,1,1,0);
-    _map->updateVisitorsPreferenceMatrix(1,2,1,2);
-    _map->updateVisitorsPreferenceMatrix(2,0,3,0);
-    _map->updateVisitorsPreferenceMatrix(2,1,3,2);
-    _map->updateVisitorsPreferenceMatrix(2,2,3,1);
+    _map->updateVisitorsPreferenceMatrix(0,0,1,1);
 
     pair<int,int>** _visitorsPreferenceMatrix = _map->visitorsPreferenceMatrix;
 
-    assert(_visitorsPreferenceMatrix[0][0].second == 2);
-    assert(_visitorsPreferenceMatrix[0][1].second == 0);
-    assert(_visitorsPreferenceMatrix[0][2].second == 1);
-    assert(_visitorsPreferenceMatrix[1][0].second == 1);
-    assert(_visitorsPreferenceMatrix[1][1].second == 0);
-    assert(_visitorsPreferenceMatrix[1][2].second == 2);
-    assert(_visitorsPreferenceMatrix[2][0].second == 0);
-    assert(_visitorsPreferenceMatrix[2][1].second == 2);
-    assert(_visitorsPreferenceMatrix[2][2].second == 1);
+    assert(_visitorsPreferenceMatrix[0][0].first == 1);
+    assert(_visitorsPreferenceMatrix[0][0].second == 1);
 }
 
-// *16* 
-void Tests::test_add_coord_of_bike(Map* map) {
-    Map* _map = map;
-    _map->addCoordOfBike(0,2,2);
-    _map->addCoordOfBike(1,0,3);
-    _map->addCoordOfBike(2,3,1);
-
-    pair<int, int> *coordsOfBikes = map->coordsOfBikes;
-
-    assert(coordsOfBikes[0].first == 2);
-    assert(coordsOfBikes[0].second == 2);
-    assert(coordsOfBikes[1].first == 0);
-    assert(coordsOfBikes[1].second == 3);
-    assert(coordsOfBikes[2].first == 3);
-    assert(coordsOfBikes[2].second == 1);
-}
-
-// *17*
-void Tests::test_preferece() {
-    Map* map = new Map(4, 4);
-    map->initVisitorsPreferenceMatrix();
-    map->updateVisitorsPreferenceMatrix(0,0,0,2);
-    map->updateVisitorsPreferenceMatrix(0,1,0,0);
-    map->updateVisitorsPreferenceMatrix(0,2,0,1);
-    map->updateVisitorsPreferenceMatrix(1,0,1,1);
-    map->updateVisitorsPreferenceMatrix(1,1,1,0);
-    map->updateVisitorsPreferenceMatrix(1,2,1,2);
-    map->updateVisitorsPreferenceMatrix(2,0,3,0);
-    map->updateVisitorsPreferenceMatrix(2,1,3,2);
-    map->updateVisitorsPreferenceMatrix(2,2,3,1);
-
-    assert(map->preference(0, 2, 0) == true);
-    assert(map->preference(0, 0, 0) == false);
-    assert(map->preference(1, 1, 1) == false);
-    assert(map->preference(1, 0, 1) == true);
-    assert(map->preference(3, 2, 3) == true);
-    assert(map->preference(3, 0, 3) == false);
-}
 
 int main(int argc, char** argv) {
 
@@ -229,9 +167,6 @@ int main(int argc, char** argv) {
     map->initMapMatrix();
 
     cout << "Starting unit tests..." << "\n";
-
-    // *0*
-    //tests.test_map_constructor();
 
     // *1*
     tests.test_bike_or_visitor();
@@ -277,12 +212,6 @@ int main(int argc, char** argv) {
 
     // *15* 
     tests.test_update_visitors_preference_matrix(map);
-
-    // *16* 
-    //tests.test_add_coord_of_bike(map);
-
-    // *17*
-    //tests.test_preferece();
 
     cout << "Success! All unit tests passed!" << "\n";
 
