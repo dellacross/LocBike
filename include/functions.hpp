@@ -33,7 +33,7 @@ bool ifExists(int x, vector<int> q) { // check if exists the element on the vect
     }
 }
 
-vector<int> getDimensions(fstream &file) {
+vector<int> getDimensions(istream &file) {
     string line = "";
     int xAxis, yAxis, numberOfElements;
     for (int i = 0; i < 2; i++) {

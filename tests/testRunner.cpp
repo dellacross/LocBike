@@ -252,11 +252,8 @@ void Tests::test_get_dimensions() {
     string mockFileContent = "10\n3 4\n";
 
     stringstream mockFile(mockFileContent);
-    fstream file;
-    file << mockFile.rdbuf();
-    file.seekg(0, ios::beg);
 
-    vector<int> result = getDimensions(file);
+    vector<int> result = getDimensions(mockFile);
 
     vector<int> expected = {10, 3, 4};
 
