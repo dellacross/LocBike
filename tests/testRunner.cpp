@@ -223,8 +223,21 @@ void Tests::test_constructor() {
     assert(_map->getNumberOfElements() == 3);
 }
 
+void Tests::test_BFS() {
+    Map* map = new Map(3, 3, 1);
+
+    map->updateMapMatrixCell(0, 0, false, 1, -1);
+    map->updateMapMatrixCell(0, 1, true, -1, -1);
+    map->updateMapMatrixCell(0, 2, false, -1, 1);
+
+    int distance = map->BFS(0, 0, 0, 2);
+
+    assert(distance == 4);
+}
+
 void Tests::test_check_free_cell(Map *map) {
     Map* _map = map;
+    map->initMapMatrix();
 
     _map->mapMatrix[0][0].obstacle = false;
     _map->mapMatrix[0][0].visited = false;
@@ -304,8 +317,11 @@ int main(int argc, char** argv) {
 
     // *21*
     tests.test_if_dont_exists_element();
-
+    
+    // *22*
     tests.test_constructor();
+
+    tests.test_BFS();
 
     //tests.test_check_free_cell(map);
 
