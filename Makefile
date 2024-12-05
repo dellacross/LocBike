@@ -7,12 +7,12 @@ BIN = bin
 TESTS = tests
 OBJS = $(OBJ)/map.o $(OBJ)/main.o
 HDRS = $(INC)/map.hpp 
-CFLAGS = -Wall -I$(INC) -Og -g -std=c++11
+CFLAGS = -Wall -I$(INC) -Og -g -std=c++11 -fprofile-arcs -ftest-coverage
 
-EXE = $(BIN)/tp02 
-EXE_TESTS = $(BIN)/testRunner
+EXE = $(BIN)/tp01
+EXE_TESTS = $(BIN)/testRunner 
 
-all: $(EXE) $(EXE_TESTS) 
+all: $(EXE) $(EXE_TESTS)
 
 $(OBJ)/map.o: $(HDRS) $(SRC)/map.cpp
 	$(CC) $(CFLAGS) -c -o $(OBJ)/map.o $(SRC)/map.cpp
@@ -24,10 +24,10 @@ $(OBJ)/testRunner.o: $(HDRS) $(TESTS)/testRunner.cpp
 	$(CC) $(CFLAGS) -c -o $(OBJ)/testRunner.o $(TESTS)/testRunner.cpp
 
 $(BIN)/testRunner: $(OBJ)/map.o
-	g++ -o bin/testRunner $(CFLAGS) $(TESTS)/testRunner.cpp $(OBJ)/map.o $(LIBS)
+	$(CC) -o $(BIN)/testRunner $(CFLAGS) $(TESTS)/testRunner.cpp $(OBJ)/map.o $(LIBS)
 
-$(BIN)/tp02: $(OBJS)
-	$(CC) -o $(BIN)/tp02 $(CFLAGS) $(OBJS) $(LIBS)
+$(BIN)/tp01: $(OBJS)
+	$(CC) -o $(BIN)/tp01 $(CFLAGS) $(OBJS) $(LIBS)
 
 clean:
-	rm $(OBJS) $(BIN)/* $(TESTS)/*_output.out
+	rm -f $(OBJS) $(BIN)/* $(TESTS)/*_output.out *.gcno *.gcda
