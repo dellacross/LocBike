@@ -12,5 +12,6 @@ class Cell {
         bool obstacle;
         bool visited;
 
+    friend class Map;
     friend class Tests;
 };

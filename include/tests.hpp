@@ -101,7 +101,4 @@ class Tests
         void test_cell_reset();
 
         void test_sort();
-
-
-    friend class Map;
 };
