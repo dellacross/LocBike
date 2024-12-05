@@ -1,3 +1,6 @@
+#ifndef MAP_HPP
+#define MAP_HPP
+
 #include "matrixCells.hpp"
 #include <queue>
 
@@ -202,3 +205,5 @@ class Map
 
     friend class Tests;
 };
+
+#endif

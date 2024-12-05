@@ -1,3 +1,6 @@
+#ifndef TESTS_HPP
+#define TESTS_HPP
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -106,3 +109,5 @@ class Tests
 
     friend class Map;
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef MATRIX_CELLS_HPP
+#define MATRIX_CELLS_HPP
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -15,3 +18,5 @@ class Cell {
     friend class Map;
     friend class Tests;
 };
+
+#endif

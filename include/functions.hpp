@@ -1,11 +1,11 @@
+#ifndef FUNCTIONS_HPP
+#define FUNCTIONS_HPP
+
 #include <sstream>
 #include <fstream>
 #include <string>
 #include <queue>
 #include "map.hpp"
-
-#ifndef FUNCTIONS_H
-#define FUNCTIONS_H
 
 using namespace std;
 
