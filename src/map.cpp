@@ -164,22 +164,6 @@ bool Map::preference(int idB, int propose, int current)
     return false;
 }
 
-string outputFilePath() {
-    char number = '1';
-    string file_path = "tests/current_output1.txt";
-    while(true) {
-        ifstream file(file_path);
-        if(file.good()) {
-            number++;
-            string file_number = file_path.substr(file_path.length() - 4);
-            file_path = file_path.substr(0, file_path.length() - 5) + number + file_number;
-        }
-        else 
-            break;
-    }
-    return file_path;
-}
-
 void stableMatchingOutput(int *v, int n, string fileName, bool testRun)
 {
     char fileNumber = fileName[fileName.length() - 4];

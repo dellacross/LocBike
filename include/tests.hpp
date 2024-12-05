@@ -106,6 +106,10 @@ class Tests
 
         void test_sort();
 
+        void test_preference();
+
+        void test_BFS();
+
 
     friend class Map;
 };

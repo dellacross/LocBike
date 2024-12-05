@@ -303,15 +303,11 @@ void Tests::test_cell_reset() {
     assert(map->mapMatrix[2][3].visitorID == -1);
 }
 
-// Definição de uma função de comparação para ordenação ascendente
-bool ascending(const pair<int, int> &x1, const pair<int, int> &x2)
-{
+bool ascending(const pair<int, int> &x1, const pair<int, int> &x2) {
     return x1.first < x2.first || (x1.first == x2.first && x1.second < x2.second);
 }
 
-// Definição de uma função de comparação para ordenação descendente
-bool descending(const pair<int, int> &x1, const pair<int, int> &x2)
-{
+bool descending(const pair<int, int> &x1, const pair<int, int> &x2) {
     return x1.first > x2.first || (x1.first == x2.first && x1.second > x2.second);
 }
 
@@ -321,26 +317,20 @@ void Tests::test_sort()
     const int numRows = 2;
     const int numCols = 5;
 
-    // Criando um vetor de pares bidimensional
     pair<int, int> *array[numRows];
     pair<int, int> data[numRows][numCols] = {
         {{3, 2}, {1, 5}, {2, 4}, {5, 1}, {4, 3}},
         {{7, 6}, {9, 8}, {8, 7}, {10, 10}, {6, 9}}};
 
-    // Inicializando o vetor bidimensional com os dados
-    for (int i = 0; i < numRows; i++)
-    {
+    for (int i = 0; i < numRows; i++){
         array[i] = data[i];
     }
 
-    // Criando um objeto da classe Map
     Map map;
-    map.numElements = numCols; // Supondo que numElements é acessível e usado corretamente
+    map.numElements = numCols;
 
-    // Teste 1: Ordenação ascendente
     map.Sort(array, ascending);
 
-    // Validando a ordenação ascendente
     for (int i = 0; i < numRows; i++)
     {
         for (int j = 1; j < numCols; j++)
@@ -354,7 +344,6 @@ void Tests::test_sort()
     }
     cout << "Teste de ordenação ascendente passou!" << endl;
 
-    // Revertendo a matriz para ordenação descendente
     for (int i = 0; i < numRows; i++) {
         for (int j = 0; j < numCols; j++) {
             data[i][0] = {3, 2};
@@ -365,10 +354,8 @@ void Tests::test_sort()
         }
     }
 
-    // Teste 2: Ordenação descendente
     map.Sort(array, descending);
 
-    // Validando a ordenação descendente
     for (int i = 0; i < numRows; i++)
     {
         for (int j = 1; j < numCols; j++)
@@ -382,6 +369,55 @@ void Tests::test_sort()
     }
     cout << "Teste de ordenação descendente passou!" << endl;
 }
+
+void Tests::test_preference() {
+    // Dados de teste
+    Map *map; 
+    map = new Map(3, 3, 3);
+
+    map->bikesPreferenceMatrix = new pair<int, int>*[1];
+    map->bikesPreferenceMatrix[0] = new pair<int, int>[3]{
+        {1, 0},  
+        {2, 0},  
+        {3, 0}   
+    };
+
+    int idB = 0;
+    int propose = 1;
+    int current = 2; 
+    assert(map->preference(idB, propose, current) == true);
+
+    propose = 3;
+    current = 1;
+    assert(map->preference(idB, propose, current) == false);
+
+    propose = 4;
+    current = 5;
+    assert(map->preference(idB, propose, current) == false);
+
+    for (int i = 0; i < 1; ++i) {
+        delete[] map->bikesPreferenceMatrix[i];
+    }
+    delete[] map->bikesPreferenceMatrix;
+}
+
+void Tests::test_BFS(){
+    Map *map;
+    map = new Map(4,4);
+
+    map->updateMapMatrixCell(1, 2, true, -1, -1);
+    map->updateMapMatrixCell(2, 2, true, -1, -1);
+
+    assert(map->BFS(0, 0, 4, 4) == 8);
+
+    map->updateMapMatrixCell(3, 3, true, -1, -1);
+    assert(map->BFS(0, 0, 4, 4) == -1); 
+
+    assert(map->BFS(0, 0, 0, 0) == 0); 
+
+    assert(map->BFS(0, 0, 10, 10) == -1); 
+}
+
 
 int main(int argc, char** argv) {
 
