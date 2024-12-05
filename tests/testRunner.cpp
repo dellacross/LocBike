@@ -201,6 +201,26 @@ void Tests::test_check_obstacle_cell(Map* map) {
     assert(_map->checkCell(0, 0) == false);
 }
 
+void Tests::test_if_exists_element() {
+    vector<int> _vector;
+    
+    _vector.push_back(2);
+    _vector.push_back(3);
+
+    assert(ifExists(2, _vector) == true);
+    assert(ifExists(3, _vector) == true);
+}
+
+void Tests::test_if_dont_exists_element() {
+    vector<int> _vector;
+    
+    _vector.push_back(2);
+    _vector.push_back(3);
+
+    assert(ifExists(4, _vector) == false);
+    assert(ifExists(5, _vector) == false);
+}
+
 void Tests::test_check_free_cell(Map *map) {
     Map* _map = map;
     assert(_map->checkCell(0, 0) == true);
@@ -272,6 +292,12 @@ int main(int argc, char** argv) {
 
     // *19*
     tests.test_check_obstacle_cell(map);
+
+    // *20*
+    tests.test_if_exists_element();
+
+    // *21*
+    tests.test_if_dont_exists_element();
 
     //tests.test_check_free_cell(map);
 

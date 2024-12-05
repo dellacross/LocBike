@@ -73,6 +73,12 @@ class Tests
         // *19*
         void test_check_obstacle_cell(Map* map);
 
+        // *20*
+        void test_if_exists_element();
+
+        // *21*
+        void test_if_dont_exists_element();
+
         void test_check_free_cell(Map *map);
 
     friend class Map;
