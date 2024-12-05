@@ -38,8 +38,6 @@ void Tests::test_if_exists() {
 
 void Tests::test_if_exists_empty_vector() {
     vector<int> _vector;
-    _vector.push_back(1);
-    _vector.pop_back();
     assert(ifExists(1, _vector) == false);
 }
 
@@ -498,6 +496,8 @@ int main(int argc, char** argv) {
     // *2*
     tests.test_if_exists();
 
+    tests.test_if_exists_empty_vector();
+
     // *3*
     tests.test_get_element_ID();
 
@@ -581,6 +581,16 @@ int main(int argc, char** argv) {
 
     // *30*
     tests.test_cell_reset();
+
+    tests.test_sort();
+
+    tests.test_preference();
+
+    tests.test_BFS();
+
+    tests.test_get_dimensions();
+
+    tests.test_set_map_matrix_cells();
 
     cout << "Success! All unit tests passed!" << "\n";
 
