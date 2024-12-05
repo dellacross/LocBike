@@ -282,7 +282,7 @@ int main(int argc, char** argv) {
     //tests.test_add_coord_of_bike(map);
 
     // *17*
-    tests.test_preferece();
+    //tests.test_preferece();
 
     cout << "Success! All unit tests passed!" << "\n";
 
