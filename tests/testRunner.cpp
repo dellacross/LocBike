@@ -260,6 +260,17 @@ void Tests::test_get_dimensions() {
     assert(result == expected);
 }
 
+void Tests::test_set_map_matrix_cells() {
+    std::istringstream input("2\n4 4\n----\n*1--\n--2*\n----\n");
+    Map map(4, 4, 2);
+    setMapMatrixCells(input, map, 4, 4, 2);
+
+    assert(map.mapMatrix[0][0].obstacle == true);
+    assert(map.mapMatrix[1][1].obstacle == false);
+    assert(map.mapMatrix[1][1].bikeID == 1);
+    assert(map.mapMatrix[2][2].visitorID == 2);
+}
+
 void Tests::test_check_free_cell(Map *map) {
     Map* _map = map;
     map->initMapMatrix();
@@ -349,9 +360,13 @@ int main(int argc, char** argv) {
     // *23*
     tests.test_BFS();
 
+    // *24*
     tests.test_get_dimensions();
 
+    // *25*
     tests.test_BFS_without_pair();
+
+    tests.test_set_map_matrix_cells();
 
     //tests.test_check_free_cell(map);
 

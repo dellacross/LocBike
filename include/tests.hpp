@@ -85,9 +85,13 @@ class Tests
         // *23*
         void test_BFS();
 
+        // *24*
+        void test_get_dimensions();
+
+        // *25*
         void test_BFS_without_pair();
 
-        void test_get_dimensions();
+        void test_set_map_matrix_cells();
 
         void test_check_free_cell(Map *map);
 

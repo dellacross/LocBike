@@ -49,7 +49,7 @@ vector<int> getDimensions(istream &file) {
     return {numberOfElements, xAxis, yAxis};
 }
 
-void setMapMatrixCells(fstream &file, Map &map, int xAxis, int yAxis, int numberOfElements) {
+void setMapMatrixCells(istream &file, Map &map, int xAxis, int yAxis, int numberOfElements) {
     string line = "";
     for (int lines = 0; lines < xAxis; lines++)
     {
