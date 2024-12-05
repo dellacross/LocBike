@@ -79,6 +79,8 @@ class Tests
         // *21*
         void test_if_dont_exists_element();
 
+        void test_constructor();
+
         void test_check_free_cell(Map *map);
 
     friend class Map;
