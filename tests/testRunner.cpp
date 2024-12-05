@@ -274,18 +274,24 @@ void Tests::test_set_map_matrix_cells() {
 }
 
 void Tests::test_preference() {
-    Map map(4, 4, 2);
+    Map map(4, 5, 5);
 
-    map.addCoordOfBike(0, 0, 0);
-    map.addCoordOfBike(1, 2, 2);
-    map.addCoordOfVisitor(0, 1, 1);
-    map.addCoordOfVisitor(1, 3, 3);
+    map.addCoordOfBike(0, 0, 2);
+    map.addCoordOfBike(1, 1, 2);
+    map.addCoordOfBike(2, 1, 4);
+    map.addCoordOfBike(3, 0, 3);
+    map.addCoordOfBike(4, 3, 3);
+
+    map.addCoordOfVisitor(0, 0, 4);
+    map.addCoordOfVisitor(1, 2, 3);
+    map.addCoordOfVisitor(2, 0, 0);
+    map.addCoordOfVisitor(3, 0, 2);
+    map.addCoordOfVisitor(4, 3, 4);
+
     map.updateBikesPreferenceMatrix();
 
-    assert(map.preference(0, 0, 1) == true);
-    assert(map.preference(0, 1, 0) == false);
-    assert(map.preference(1, 1, 0) == true);
-    assert(map.preference(1, 0, 1) == false);
+    assert(map.preference(0, 4, 1) == true);
+    assert(map.preference(2, 1, 3) == false);
 }
 
 void Tests::test_check_free_cell(Map *map) {
