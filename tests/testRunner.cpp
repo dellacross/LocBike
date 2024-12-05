@@ -161,6 +161,27 @@ void Tests::test_update_visitors_preference_matrix(Map* map) {
     assert(_visitorsPreferenceMatrix[0][0].second == 1);
 }
 
+void Tests::test_add_coord_of_bike(Map* map) {
+    Map* _map = map;
+
+    map->initCoordOfBikesVector();
+    map->addCoordOfBike(0, 1, 2);
+
+    assert(_map->coordsOfBikes[0].first == 1);
+    assert(_map->coordsOfBikes[0].second == 2);
+}
+
+void Tests::test_add_coord_of_visitor(Map* map) {
+    Map* _map = map;
+
+    map->initCoordOfVisitorsVector();
+    map->addCoordOfVisitor(0, 1, 2);
+
+    pair<int, int> *v = map->getCoordsOfVisitors();
+
+    assert(v[0].first == 1);
+    assert(v[0].second == 2);
+}
 
 int main(int argc, char** argv) {
 
@@ -216,6 +237,10 @@ int main(int argc, char** argv) {
 
     // *15* 
     tests.test_update_visitors_preference_matrix(map);
+
+    tests.test_add_coord_of_bike(map);
+
+    tests.test_add_coord_of_visitor(map);
 
     cout << "Success! All unit tests passed!" << "\n";
 
