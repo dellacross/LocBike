@@ -386,7 +386,7 @@ int main(int argc, char** argv) {
     // *26*
     tests.test_set_map_matrix_cells();
 
-    testes.test_preferences();
+    tests.test_preference();
 
     cout << "Success! All unit tests passed!" << "\n";
 
