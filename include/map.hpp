@@ -1,5 +1,4 @@
 #include "matrixCells.hpp"
-#include "functions.hpp"
 #include <queue>
 
 using namespace std;
