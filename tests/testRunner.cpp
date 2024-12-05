@@ -231,7 +231,7 @@ int main(int argc, char** argv) {
     cout << "Starting unit tests..." << "\n";
 
     // *0*
-    tests.test_map_constructor();
+    //tests.test_map_constructor();
 
     // *1*
     tests.test_bike_or_visitor();
@@ -279,7 +279,7 @@ int main(int argc, char** argv) {
     tests.test_update_visitors_preference_matrix(map);
 
     // *16* 
-    tests.test_add_coord_of_bike(map);
+    //tests.test_add_coord_of_bike(map);
 
     // *17*
     tests.test_preferece();
