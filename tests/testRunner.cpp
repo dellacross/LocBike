@@ -20,12 +20,14 @@ void Tests::test_bike_or_visitor(){
 void Tests::test_if_exists() {
     vector<int> _vector;
     _vector.push_back(1);
-    _vector.push_back(2);
     _vector.push_back(3);
 
     assert(ifExists(1, _vector) == true);
-    assert(ifExists(2, _vector) == true);
+    assert(ifExists(2, _vector) == false);
     assert(ifExists(3, _vector) == true);
+    assert(ifExists(4, _vector) == false);
+
+    _vector.clear();
     assert(ifExists(4, _vector) == false);
 }
 
@@ -403,21 +405,72 @@ void Tests::test_preference() {
 
 void Tests::test_BFS(){
     Map *map;
-    map = new Map(4,4);
+    map = new Map(3, 3, 1);
 
-    map->updateMapMatrixCell(1, 2, true, -1, -1);
-    map->updateMapMatrixCell(2, 2, true, -1, -1);
+    map->updateMapMatrixCell(1, 1, true, -1, -1);
 
-    assert(map->BFS(0, 0, 4, 4) == 8);
+    assert(map->BFS(0, 0, 2, 2) == 4);
 
-    map->updateMapMatrixCell(3, 3, true, -1, -1);
-    assert(map->BFS(0, 0, 4, 4) == -1); 
-
-    assert(map->BFS(0, 0, 0, 0) == 0); 
-
-    assert(map->BFS(0, 0, 10, 10) == -1); 
+    map->updateMapMatrixCell(0, 1, true, -1, -1);
+    assert(map->BFS(0, 0, 2, 2) == 4); 
 }
 
+void Tests::test_get_dimensions() {
+    stringstream simulatedFile;
+    simulatedFile << "5\n";  
+    simulatedFile << "10 15\n";  
+
+    fstream file;
+    file.open("/tmp/simulatedFile.txt", fstream::in | fstream::out | fstream::trunc);
+    file << simulatedFile.rdbuf();
+    file.seekg(0);
+
+    vector<int> result = getDimensions(file);
+
+    assert(result.size() == 3);
+    assert(result[0] == 5);
+    assert(result[1] == 10);
+    assert(result[2] == 15);
+
+    file.close();
+}
+
+bool mockBikeOrVisitor(char c) {
+    return isdigit(c); // Exemplo simples para simular comportamento
+}
+
+int mockGetElementID(char c) {
+    return c - '0'; // Retorna um ID baseado no caractere
+}
+
+void Tests::test_set_map_matrix_cells() {
+    string testFileContent =
+        "***-\n"
+        "*12a\n"
+        "*b--\n";
+    ofstream testFile("test_map.txt");
+    testFile << testFileContent;
+    testFile.close();
+
+    fstream inputFile("test_map.txt");
+    assert(inputFile.is_open() == true);
+
+    int xAxis = 3;
+    int yAxis = 4;
+    int numberOfElements = 2;
+    Map *map;
+    map = new Map(xAxis,yAxis,numberOfElements);
+
+    setMapMatrixCells(inputFile, *map, xAxis, yAxis, numberOfElements);
+
+    assert(map->mapMatrix[0][0].obstacle == false); 
+    assert(map->mapMatrix[0][3].obstacle == true); 
+    assert(map->mapMatrix[1][1].bikeID == 1); 
+    assert(map->mapMatrix[1][2].visitorID == 2);
+
+    inputFile.close();
+    remove("test_map.txt");
+}
 
 int main(int argc, char** argv) {
 

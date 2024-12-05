@@ -110,6 +110,10 @@ class Tests
 
         void test_BFS();
 
+        void test_get_dimensions();
+
+        void test_set_map_matrix_cells();
+
 
     friend class Map;
 };
