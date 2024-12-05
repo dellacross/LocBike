@@ -291,7 +291,24 @@ void Tests::test_preference() {
     map.updateBikesPreferenceMatrix();
 
     assert(map.preference(0, 4, 1) == false);
-    assert(map.preference(2, 1, 3) == true);
+    assert(map.preference(2, 1, 3) == true);    
+}
+
+void Tests::test_stable_matching_output() {
+    int v[] = {1, 0};
+    int n = 2;
+    std::string fileName = "test_file.txt";
+    bool testRun = false;
+
+    std::stringstream buffer;
+    std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
+
+    stableMatchingOutput(v, n, fileName, testRun);
+
+    std::cout.rdbuf(old);
+
+    std::string expectedOutput = "a 1\nb 0\n";
+    assert(buffer.str() == expectedOutput);
 }
 
 void Tests::test_check_free_cell(Map *map) {
@@ -324,75 +341,79 @@ int main(int argc, char** argv) {
     // *4*
     tests.test_get_bike_element_ID();
 
+    // *4*
     tests.test_get_visitor_element_ID();
 
-    // *5* 
+    // *6* 
     tests.test_init_map_matrix(map);
 
-    // *6* 
+    // *7* 
     tests.test_cell_constructor();
 
-    // *7*
+    // *8*
     tests.test_update_map_matrix_cell(map);
 
-    // *8*
+    // *9*
     tests.test_check_cell_out_of_range(map);
 
-    // *9*
+    // *10*
     tests.test_check_cell_negative(map);
 
-    // *10*
+    // *11*
     tests.test_init_visitors_preference_matrix(map);
 
-    // *11* 
+    // *12* 
     tests.test_init_bikes_preference_matrix(map);
 
-    // *12* 
+    // *13* 
     tests.test_init_coord_of_bikes_vector(map);
 
-    // *13* 
+    // *14* 
     tests.test_init_coord_of_visitors_vector(map);
 
-    // *14* 
+    // *15* 
     tests.test_all_no_visited(map);
 
-    // *15* 
+    // *16* 
     tests.test_update_visitors_preference_matrix(map);
 
-    // *16*
+    // *17*
     tests.test_add_coord_of_bike(map);
 
-    // *17*
+    // *18*
     tests.test_add_coord_of_visitor(map);
 
-    // *18*
+    // *19*
     tests.test_check_visited_cell(map);
 
-    // *19*
+    // *20*
     tests.test_check_obstacle_cell(map);
 
-    // *20*
+    // *21*
     tests.test_if_exists_element();
 
-    // *21*
+    // *22*
     tests.test_if_dont_exists_element();
     
-    // *22*
+    // *23*
     tests.test_constructor();
 
-    // *23*
+    // *24*
     tests.test_BFS();
 
-    // *24*
+    // *25*
     tests.test_get_dimensions();
 
-    // *25*
+    // *26*
     tests.test_BFS_without_pair();
 
-    // *26*
+    // *27*
     tests.test_set_map_matrix_cells();
 
+    // *28*
     tests.test_preference();
+
+    tests.test_stable_matching_output();
 
     cout << "Success! All unit tests passed!" << "\n";
 

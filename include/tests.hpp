@@ -26,75 +26,79 @@ class Tests
         // *4*
         void test_get_bike_element_ID();
 
+        // *5*
         void test_get_visitor_element_ID();
 
-        // *5* 
+        // *6* 
         void test_init_map_matrix(Map* map);
 
-        // *6* 
+        // *7* 
         void test_cell_constructor();
 
-        // *7*
+        // *8*
         void test_update_map_matrix_cell(Map* map);
 
-        // *8*
+        // *9*
         void test_check_cell_out_of_range(Map* map);
 
-        // *9*
+        // *10*
         void test_check_cell_negative(Map* map);
 
-        // *10*
+        // *11*
         void test_init_visitors_preference_matrix(Map* map);
 
-        // *11* 
+        // *12* 
         void test_init_bikes_preference_matrix(Map* map);
 
-        // *12* 
+        // *13* 
         void test_init_coord_of_bikes_vector(Map* map);
 
-        // *13* 
+        // *14* 
         void test_init_coord_of_visitors_vector(Map* map);
 
-        // *14* 
+        // *15* 
         void test_all_no_visited(Map* map);
 
-        // *15* 
+        // *16* 
         void test_update_visitors_preference_matrix(Map* map);
 
-        // *16*
+        // *17*
         void test_add_coord_of_bike(Map* map);
 
-        // *17*
+        // *18*
         void test_add_coord_of_visitor(Map* map);
 
-        // *18*
+        // *19*
         void test_check_visited_cell(Map* map);
 
-        // *19*
+        // *20*
         void test_check_obstacle_cell(Map* map);
 
-        // *20*
+        // *21*
         void test_if_exists_element();
 
-        // *21*
+        // *22*
         void test_if_dont_exists_element();
 
-        // *22*
+        // *23*
         void test_constructor();
 
-        // *23*
+        // *24*
         void test_BFS();
 
-        // *24*
+        // *25*
         void test_get_dimensions();
 
-        // *25*
+        // *26*
         void test_BFS_without_pair();
 
-        // *26*
+        // *27*
         void test_set_map_matrix_cells();
 
+        // *28*
         void test_preference();
+
+        void test_stable_matching_output();
 
         void test_check_free_cell(Map *map);
 
