@@ -1,5 +1,5 @@
 #include "tests.hpp"
-#include "functions.hpp"
+#include "map.hpp"
 #include <cassert>
 #include <utility> 
 #include <algorithm>
