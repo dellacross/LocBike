@@ -253,9 +253,10 @@ void Tests::test_add_coord_of_bike(Map* map) {
 
 // *16*
 void Tests::test_cell_with_obstacle() {
-    Cell cell = Cell(-1, -1, true, false);
-    assert(cell.obstacle == true);
-    assert(cell.visited == false);
+    Cell *cell;
+    cell = new Cell(-1, -1, true, false);
+    assert(cell->obstacle == true);
+    assert(cell->visited == false);
 }
 
 // *17*
@@ -281,11 +282,12 @@ void Tests::test_visitor_preferences_initialization() {
 
 // *20*
 void Tests::test_empty_cell() {
-    Cell cell = Cell(0, 0, false, false);
-    assert(cell.obstacle == false);
-    assert(cell.visited == false);
-    assert(cell.bikeID == -1);
-    assert(cell.visitorID == -1);
+    Cell *cell;
+    cell = new Cell(-1, -1, false, false);
+    assert(cell->obstacle == false);
+    assert(cell->visited == false);
+    assert(cell->bikeID == -1);
+    assert(cell->visitorID == -1);
 }
 
 // *21*
