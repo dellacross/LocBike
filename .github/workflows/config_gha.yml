@@ -35,4 +35,6 @@ jobs:
           ./bin/testRunner tests/teste4.in
           ./bin/testRunner tests/teste5.in
         fi
-      
+    - name: Codecov
+      uses: codecov/codecov-action@v5.0.7
+            
