@@ -180,7 +180,9 @@ int main(int argc, char** argv) {
     tests.test_if_exists_empty_vector();
 
     // *4*
-    tests.test_get_element_ID();
+    tests.test_get_bike_element_ID();
+
+    tests.test_get_visitor_element_ID();
 
     // *5* 
     tests.test_init_map_matrix(map);
