@@ -161,6 +161,7 @@ void Tests::test_update_visitors_preference_matrix(Map* map) {
     assert(_visitorsPreferenceMatrix[0][0].second == 1);
 }
 
+// *16*
 void Tests::test_add_coord_of_bike(Map* map) {
     Map* _map = map;
 
@@ -171,6 +172,7 @@ void Tests::test_add_coord_of_bike(Map* map) {
     assert(_map->coordsOfBikes[0].second == 2);
 }
 
+// *17*
 void Tests::test_add_coord_of_visitor(Map* map) {
     Map* _map = map;
 
@@ -181,6 +183,22 @@ void Tests::test_add_coord_of_visitor(Map* map) {
 
     assert(v[0].first == 1);
     assert(v[0].second == 2);
+}
+
+void Tests::test_check_visited_cell(Map* map) {
+    Map* _map = map;
+
+    _map->mapMatrix[0][0].visited = true;
+
+    assert(_map->checkCell(0, 0) == false);
+}
+
+void Tests::test_check_obstacle_cell(Map* map) {
+    Map* _map = map;
+
+    _map->mapMatrix[0][0].obstacle = true;
+
+    assert(_map->checkCell(0, 0) == false);
 }
 
 int main(int argc, char** argv) {
@@ -238,9 +256,15 @@ int main(int argc, char** argv) {
     // *15* 
     tests.test_update_visitors_preference_matrix(map);
 
+    // *16*
     tests.test_add_coord_of_bike(map);
 
+    // *17*
     tests.test_add_coord_of_visitor(map);
+
+    tests.test_check_visited_cell(map);
+
+    tests.test_check_obstacle_cell(map);
 
     cout << "Success! All unit tests passed!" << "\n";
 

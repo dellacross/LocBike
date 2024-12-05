@@ -61,9 +61,15 @@ class Tests
         // *15* 
         void test_update_visitors_preference_matrix(Map* map);
 
+        // *16*
         void test_add_coord_of_bike(Map* map);
 
+        // *17*
         void test_add_coord_of_visitor(Map* map);
+
+        void test_check_visited_cell(Map* map);
+
+        void test_check_obstacle_cell(Map* map);
 
     friend class Map;
 };
