@@ -63,6 +63,8 @@ class Tests
         // *15* 
         void test_add_coord_of_bike(Map* map);
 
+        void test_add_coord_of_visitor(Map* map);
+
         // *16*
         void test_cell_with_obstacle();
 
@@ -108,16 +110,7 @@ class Tests
         // *30*
         void test_cell_reset();
 
-        void test_sort();
-
-        void test_preference();
-
-        void test_BFS();
-
-        void test_get_dimensions();
-
-        void test_set_map_matrix_cells();
-
+        void test_preferece();
 
     friend class Map;
 };

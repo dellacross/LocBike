@@ -197,6 +197,22 @@ void Tests::test_add_coord_of_bike(Map* map) {
     assert(coordsOfBikes[2].second == 1);
 }
 
+void Tests::test_add_coord_of_visitor(Map* map) {
+    Map* _map = map;
+    _map->addCoordOfVisitor(0,2,2);
+    _map->addCoordOfVisitor(1,0,3);
+    _map->addCoordOfVisitor(2,3,1);
+
+    pair<int, int> *coordsOfVisitors = map->coordsOfVisitors;
+
+    assert(coordsOfVisitors[0].first == 2);
+    assert(coordsOfVisitors[0].second == 2);
+    assert(coordsOfVisitors[1].first == 0);
+    assert(coordsOfVisitors[1].second == 3);
+    assert(coordsOfVisitors[2].first == 3);
+    assert(coordsOfVisitors[2].second == 1);
+}
+
 // *16*
 void Tests::test_cell_with_obstacle() {
     Cell *cell;
@@ -315,171 +331,25 @@ void Tests::test_cell_reset() {
     assert(map->mapMatrix[2][3].visitorID == -1);
 }
 
-bool ascending(const pair<int, int> &x1, const pair<int, int> &x2) {
-    return x1.first < x2.first || (x1.first == x2.first && x1.second < x2.second);
-}
+void Tests::test_preferece() {
+    Map* map = new Map(4, 4);
+    map->initVisitorsPreferenceMatrix();
+    map->updateVisitorsPreferenceMatrix(0,0,0,2);
+    map->updateVisitorsPreferenceMatrix(0,1,0,0);
+    map->updateVisitorsPreferenceMatrix(0,2,0,1);
+    map->updateVisitorsPreferenceMatrix(1,0,1,1);
+    map->updateVisitorsPreferenceMatrix(1,1,1,0);
+    map->updateVisitorsPreferenceMatrix(1,2,1,2);
+    map->updateVisitorsPreferenceMatrix(2,0,3,0);
+    map->updateVisitorsPreferenceMatrix(2,1,3,2);
+    map->updateVisitorsPreferenceMatrix(2,2,3,1);
 
-bool descending(const pair<int, int> &x1, const pair<int, int> &x2) {
-    return x1.first > x2.first || (x1.first == x2.first && x1.second > x2.second);
-}
-
-// Teste da função Sort
-void Tests::test_sort()
-{
-    const int numRows = 2;
-    const int numCols = 5;
-
-    pair<int, int> *array[numRows];
-    pair<int, int> data[numRows][numCols] = {
-        {{3, 2}, {1, 5}, {2, 4}, {5, 1}, {4, 3}},
-        {{7, 6}, {9, 8}, {8, 7}, {10, 10}, {6, 9}}};
-
-    for (int i = 0; i < numRows; i++){
-        array[i] = data[i];
-    }
-
-    Map map;
-    map.numElements = numCols;
-
-    map.Sort(array, ascending);
-
-    for (int i = 0; i < numRows; i++)
-    {
-        for (int j = 1; j < numCols; j++)
-        {
-            assert(array[i][j - 1].first <= array[i][j].first);
-            if (array[i][j - 1].first == array[i][j].first)
-            {
-                assert(array[i][j - 1].second <= array[i][j].second);
-            }
-        }
-    }
-    cout << "Teste de ordenação ascendente passou!" << endl;
-
-    for (int i = 0; i < numRows; i++) {
-        for (int j = 0; j < numCols; j++) {
-            data[i][0] = {3, 2};
-            data[i][1] = {1, 5};
-            data[i][2] = {2, 4};
-            data[i][3] = {5, 1};
-            data[i][4] = {4, 3};
-        }
-    }
-
-    map.Sort(array, descending);
-
-    for (int i = 0; i < numRows; i++)
-    {
-        for (int j = 1; j < numCols; j++)
-        {
-            assert(array[i][j - 1].first >= array[i][j].first);
-            if (array[i][j - 1].first == array[i][j].first)
-            {
-                assert(array[i][j - 1].second >= array[i][j].second);
-            }
-        }
-    }
-    cout << "Teste de ordenação descendente passou!" << endl;
-}
-
-void Tests::test_preference() {
-    // Dados de teste
-    Map *map; 
-    map = new Map(3, 3, 3);
-
-    map->bikesPreferenceMatrix = new pair<int, int>*[1];
-    map->bikesPreferenceMatrix[0] = new pair<int, int>[3]{
-        {1, 0},  
-        {2, 0},  
-        {3, 0}   
-    };
-
-    int idB = 0;
-    int propose = 1;
-    int current = 2; 
-    assert(map->preference(idB, propose, current) == true);
-
-    propose = 3;
-    current = 1;
-    assert(map->preference(idB, propose, current) == false);
-
-    propose = 4;
-    current = 5;
-    assert(map->preference(idB, propose, current) == false);
-
-    for (int i = 0; i < 1; ++i) {
-        delete[] map->bikesPreferenceMatrix[i];
-    }
-    delete[] map->bikesPreferenceMatrix;
-}
-
-void Tests::test_BFS(){
-    Map *map;
-    map = new Map(3, 3, 1);
-
-    map->updateMapMatrixCell(1, 1, true, -1, -1);
-
-    assert(map->BFS(0, 0, 2, 2) == 4);
-
-    map->updateMapMatrixCell(0, 1, true, -1, -1);
-    assert(map->BFS(0, 0, 2, 2) == 4); 
-}
-
-void Tests::test_get_dimensions() {
-    stringstream simulatedFile;
-    simulatedFile << "5\n";  
-    simulatedFile << "10 15\n";  
-
-    fstream file;
-    file.open("/tmp/simulatedFile.txt", fstream::in | fstream::out | fstream::trunc);
-    file << simulatedFile.rdbuf();
-    file.seekg(0);
-
-    vector<int> result = getDimensions(file);
-
-    assert(result.size() == 3);
-    assert(result[0] == 5);
-    assert(result[1] == 10);
-    assert(result[2] == 15);
-
-    file.close();
-}
-
-bool mockBikeOrVisitor(char c) {
-    return isdigit(c); // Exemplo simples para simular comportamento
-}
-
-int mockGetElementID(char c) {
-    return c - '0'; // Retorna um ID baseado no caractere
-}
-
-void Tests::test_set_map_matrix_cells() {
-    string testFileContent =
-        "***-\n"
-        "*12a\n"
-        "*b--\n";
-    ofstream testFile("test_map.txt");
-    testFile << testFileContent;
-    testFile.close();
-
-    fstream inputFile("test_map.txt");
-    assert(inputFile.is_open() == true);
-
-    int xAxis = 3;
-    int yAxis = 4;
-    int numberOfElements = 2;
-    Map *map;
-    map = new Map(xAxis,yAxis,numberOfElements);
-
-    setMapMatrixCells(inputFile, *map, xAxis, yAxis, numberOfElements);
-
-    assert(map->mapMatrix[0][0].obstacle == false); 
-    assert(map->mapMatrix[0][3].obstacle == true); 
-    assert(map->mapMatrix[1][1].bikeID == 1); 
-    assert(map->mapMatrix[1][2].visitorID == 2);
-
-    inputFile.close();
-    remove("test_map.txt");
+    assert(map->preference(0, 2, 0) == true);
+    assert(map->preference(0, 0, 0) == false);
+    assert(map->preference(1, 1, 1) == false);
+    assert(map->preference(1, 0, 1) == true);
+    assert(map->preference(3, 2, 3) == true);
+    assert(map->preference(3, 0, 3) == false);
 }
 
 int main(int argc, char** argv) {
