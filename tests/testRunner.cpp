@@ -30,8 +30,8 @@ void Tests::test_if_exists() {
 
 // *3*
 void Tests::test_if_exists_empty_vector() {
-    vector<int> _vector(0);
-    assert(ifExists(1, _vector) == false);
+    vector<int> empty_vector;
+    assert(ifExists(1, empty_vector) == false);
 }
 
 // *4*
@@ -211,8 +211,8 @@ void Tests::test_if_exists_element() {
 void Tests::test_if_dont_exists_element() {
     vector<int> _vector = {2, 3};
 
+    assert(ifExists(3, _vector) == true);
     assert(ifExists(4, _vector) == false);
-    assert(ifExists(5, _vector) == false);
 }
 
 void Tests::test_constructor() {
@@ -271,6 +271,21 @@ void Tests::test_set_map_matrix_cells() {
     assert(map.mapMatrix[0][0].obstacle == false);
     assert(map.mapMatrix[0][3].bikeID == 2);
     assert(map.mapMatrix[0][0].visitorID == 1);
+}
+
+void Tests::test_preference() {
+    Map map(4, 4, 2);
+
+    map.addCoordOfBike(0, 0, 0);
+    map.addCoordOfBike(1, 2, 2);
+    map.addCoordOfVisitor(0, 1, 1);
+    map.addCoordOfVisitor(1, 3, 3);
+    map.updateBikesPreferenceMatrix();
+
+    assert(map.preference(0, 0, 1) == true);
+    assert(map.preference(0, 1, 0) == false);
+    assert(map.preference(1, 1, 0) == true);
+    assert(map.preference(1, 0, 1) == false);
 }
 
 void Tests::test_check_free_cell(Map *map) {
@@ -368,9 +383,10 @@ int main(int argc, char** argv) {
     // *25*
     tests.test_BFS_without_pair();
 
+    // *26*
     tests.test_set_map_matrix_cells();
 
-    //tests.test_check_free_cell(map);
+    testes.test_preferences();
 
     cout << "Success! All unit tests passed!" << "\n";
 

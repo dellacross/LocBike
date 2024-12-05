@@ -91,7 +91,10 @@ class Tests
         // *25*
         void test_BFS_without_pair();
 
+        // *26*
         void test_set_map_matrix_cells();
+
+        void test_preference();
 
         void test_check_free_cell(Map *map);
 
