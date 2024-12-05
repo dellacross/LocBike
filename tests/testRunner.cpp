@@ -201,6 +201,11 @@ void Tests::test_check_obstacle_cell(Map* map) {
     assert(_map->checkCell(0, 0) == false);
 }
 
+void Tests::test_check_free_cell(Map *map) {
+    Map* _map = map;
+    assert(_map->checkCell(0, 0) == true);
+}
+
 int main(int argc, char** argv) {
 
     Tests tests;
@@ -262,9 +267,13 @@ int main(int argc, char** argv) {
     // *17*
     tests.test_add_coord_of_visitor(map);
 
+    // *18*
     tests.test_check_visited_cell(map);
 
+    // *19*
     tests.test_check_obstacle_cell(map);
+
+    tests.test_check_free_cell(map);
 
     cout << "Success! All unit tests passed!" << "\n";
 

@@ -67,9 +67,13 @@ class Tests
         // *17*
         void test_add_coord_of_visitor(Map* map);
 
+        // *18*
         void test_check_visited_cell(Map* map);
 
+        // *19*
         void test_check_obstacle_cell(Map* map);
+
+        void test_check_free_cell(Map *map);
 
     friend class Map;
 };
