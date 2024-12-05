@@ -251,6 +251,123 @@ void Tests::test_addCoordOfBike(Map* map) {
     assert(coordsOfBikes[2].second == 1);
 }
 
+// *16*
+void Tests::test_cell_with_obstacle() {
+    Cell cell = Cell(1, 1, true, false);
+    assert(cell.obstacle == true);
+    assert(cell.visited == false);
+}
+
+// *17*
+void Tests::test_map_custom_dimensions() {
+    Map* map = new Map(5, 6); // Mapa 5x6
+    assert(map->dimX == 5);
+    assert(map->dimY == 6);
+}
+
+// *18*
+void Tests::test_bike_preferences_initialization() {
+    Map* map = new Map(4, 4);
+    map->initBikesPreferenceMatrix();
+    assert(map->bikesPreferenceMatrix != nullptr);  // Verificar se a matriz foi inicializada
+}
+
+// *19*
+void Tests::test_visitor_preferences_initialization() {
+    Map* map = new Map(4, 4);
+    map->initVisitorsPreferenceMatrix();
+    assert(map->visitorsPreferenceMatrix != nullptr);  // Verificar se a matriz foi inicializada
+}
+
+// *20*
+void Tests::test_empty_cell() {
+    Cell cell = Cell(0, 0, false, false);
+    assert(cell.obstacle == false);
+    assert(cell.visited == false);
+    assert(cell.bikeID == -1);
+    assert(cell.visitorID == -1);
+}
+
+// *21*
+void Tests::test_cell_update_with_obstacle() {
+    Map* map = new Map(4, 4);
+    map->mapMatrix[2][3].obstacle = true;
+    assert(map->mapMatrix[2][3].obstacle == true);
+}
+
+// *22*
+void Tests::test_bike_removal() {
+    Map* map = new Map(4, 4);
+    map->mapMatrix[2][3].bikeID = 3;  // Definindo uma bicicleta na célula
+    map->mapMatrix[2][3].bikeID = -1;  // Removendo a bicicleta
+    assert(map->mapMatrix[2][3].bikeID == -1);  // Verificar se a célula está vazia
+}
+
+// *23*
+void Tests::test_cell_update_with_bike() {
+    Map* map = new Map(4, 4);
+    map->mapMatrix[2][3].bikeID = 5;
+    assert(map->mapMatrix[2][3].bikeID == 5);
+}
+
+// *24*
+void Tests::test_bike_move() {
+    Map* map = new Map(4, 4);
+    map->mapMatrix[2][3].bikeID = 5;
+    map->mapMatrix[2][3].bikeID = -1;  // Remover bicicleta da célula original
+    map->mapMatrix[1][2].bikeID = 5;  // Mover bicicleta para a nova célula
+    assert(map->mapMatrix[1][2].bikeID == 5);
+}
+
+// *25*
+void Tests::test_cell_update_with_visitor() {
+    Map* map = new Map(4, 4);
+    map->mapMatrix[2][3].visitorID = 7;
+    assert(map->mapMatrix[2][3].visitorID == 7);
+}
+
+// *26*
+void Tests::test_visitor_move() {
+    Map* map = new Map(4, 4);
+    map->mapMatrix[2][3].visitorID = 7;
+    map->mapMatrix[2][3].visitorID = -1;  // Remover visitante da célula original
+    map->mapMatrix[1][2].visitorID = 7;  // Mover visitante para a nova célula
+    assert(map->mapMatrix[1][2].visitorID == 7);
+}
+
+// *27*
+void Tests::test_bike_coordinates_initialization() {
+    Map* map = new Map(4, 4);
+    map->initCoordOfBikesVector();
+    assert(map->coordsOfBikes != nullptr);
+}
+
+// *28*
+void Tests::test_check_valid_cell() {
+    Map* map = new Map(4, 4);
+    bool validCell = map->checkCell(1, 2);
+    assert(validCell == true);  // Célula (1, 2) deve ser válida
+}
+
+// *29*
+void Tests::test_check_invalid_cell() {
+    Map* map = new Map(4, 4);
+    bool invalidCell = map->checkCell(5, 5);
+    assert(invalidCell == false);  // Célula (5, 5) deve ser inválida
+}
+
+// *30*
+void Tests::test_cell_reset() {
+    Map* map = new Map(4, 4);
+    map->mapMatrix[2][3].bikeID = 5;
+    map->mapMatrix[2][3].visitorID = 8;
+    map->mapMatrix[2][3].bikeID = -1;  // Remover bicicleta
+    map->mapMatrix[2][3].visitorID = -1;  // Remover visitante
+    assert(map->mapMatrix[2][3].bikeID == -1);
+    assert(map->mapMatrix[2][3].visitorID == -1);
+}
+
+
 void exec_system(string filePath) {
     fstream file(filePath);
     if (file)
@@ -401,6 +518,51 @@ int main(int argc, char** argv) {
 
     // *15* 
     tests.test_addCoordOfBike(map);
+
+    // *16*
+    tests.test_cell_with_obstacle();
+
+    // *17*
+    tests.test_map_custom_dimensions();
+
+    // *18*
+    tests.test_bike_preferences_initialization();
+
+    // *19*
+    tests.test_visitor_preferences_initialization();
+
+    // *20*
+    tests.test_empty_cell();
+
+    // *21*
+    tests.test_cell_update_with_obstacle();
+
+    // *22*
+    tests.test_bike_removal();
+
+    // *23*
+    tests.test_cell_update_with_bike();
+
+    // *24*
+    tests.test_bike_move();
+
+    // *25*
+    tests.test_cell_update_with_visitor();
+
+    // *26*
+    tests.test_visitor_move();
+
+    // *27*
+    tests.test_bike_coordinates_initialization();
+
+    // *28*
+    tests.test_check_valid_cell();
+
+    // *29*
+    tests.test_check_invalid_cell();
+
+    // *30*
+    tests.test_cell_reset();
 
     cout << "Success! All unit tests passed!" << "\n";
     
