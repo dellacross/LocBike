@@ -98,9 +98,11 @@ class Tests
         // *28*
         void test_preference();
 
+        // *29*
         void test_stable_matching_output();
 
-        void test_check_free_cell(Map *map);
+        // *30*
+        void test_constructor();
 
     friend class Map;
 };

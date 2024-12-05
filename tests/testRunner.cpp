@@ -311,14 +311,12 @@ void Tests::test_stable_matching_output() {
     assert(buffer.str() == expectedOutput);
 }
 
-void Tests::test_check_free_cell(Map *map) {
-    Map* _map = map;
-    map->initMapMatrix();
+void Tests::test_constructor() {
+    Map* map = new Map(4, 4, 3);
 
-    _map->mapMatrix[0][0].obstacle = false;
-    _map->mapMatrix[0][0].visited = false;
-
-    assert(_map->checkCell(0, 0) == false);
+    assert(map->dimX == 4);
+    assert(map->dimY == 4);
+    assert(map->numElements == 3);
 }
 
 int main(int argc, char** argv) {
@@ -413,7 +411,11 @@ int main(int argc, char** argv) {
     // *28*
     tests.test_preference();
 
+    // *29*
     tests.test_stable_matching_output();
+
+    // *30*
+    tests.test_constructor();
 
     cout << "Success! All unit tests passed!" << "\n";
 
