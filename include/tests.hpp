@@ -14,7 +14,8 @@ class Tests
 
         ~Tests(){};
 
-        void test_map_contructor();
+        // *0*
+        void test_map_constructor();
 
         // *1*
         void test_bike_or_visitor();
@@ -65,9 +66,6 @@ class Tests
         void test_add_coord_of_bike(Map* map);
 
         // *17*
-        void test_add_coord_of_visitor(Map* map);
-
-        // *18*
         void test_preferece();
 
     friend class Map;

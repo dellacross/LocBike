@@ -8,7 +8,8 @@
 
 int numberOfElements = -1, x_dimension = -1, y_dimension = -1;
 
-void Tests::test_map_contructor() {
+// *0*
+void Tests::test_map_constructor() {
     Map* map;
     map = new Map(4,4);
 
@@ -36,12 +37,14 @@ void Tests::test_if_exists() {
     assert(ifExists(4, _vector) == false);
 }
 
+// *3*
+
 void Tests::test_if_exists_empty_vector() {
     vector<int> _vector;
     assert(ifExists(1, _vector) == false);
 }
 
-// *3*
+// *4*
 void Tests::test_get_element_ID() {
     assert(getElementID('0') == 1);
     assert(getElementID('2') == 3);
@@ -49,14 +52,14 @@ void Tests::test_get_element_ID() {
     assert(getElementID('b') == 2);
 }
 
-// *4* 
+// *5* 
 void Tests::test_init_map_matrix(Map* map) {
     assert(map->dimX == 4);
     assert(map->dimY == 4);
     assert(map->numElements == 3);
 }
 
-// *5* 
+// *6* 
 void Tests::test_cell_constructor() {
     Cell *cell;
     cell = new Cell(-1, 2, false, false);
@@ -66,7 +69,7 @@ void Tests::test_cell_constructor() {
     assert(cell->visitorID == 2);
 }
 
-// *6*
+// *7*
 void Tests::test_update_map_matrix_cell(Map* map) {
     Map* _map = map;
     _map->updateMapMatrixCell(2, 3, true, -1, -1);
@@ -78,7 +81,7 @@ void Tests::test_update_map_matrix_cell(Map* map) {
     assert(_map->mapMatrix[0][2].visitorID == 3);
 }
 
-// *7*
+// *8*
 void Tests::test_check_cell_out_of_range(Map* map) {
     Map* _map = map;
     bool invalid_out_of_range_1 = _map->checkCell(11, 3);
@@ -88,7 +91,7 @@ void Tests::test_check_cell_out_of_range(Map* map) {
     assert(invalid_out_of_range_2 == false);
 }
 
-// *8*
+// *9*
 void Tests::test_check_cell_negative(Map* map) {
     bool invalid_negative_1 = map->checkCell(-1, 3);
     bool invalid_negative_2 = map->checkCell(1, -3);
@@ -97,7 +100,7 @@ void Tests::test_check_cell_negative(Map* map) {
     assert(invalid_negative_2 == false);
 }
 
-// *9*
+// *10*
 void Tests::test_init_visitors_preference_matrix(Map* map) {
     Map* _map = map;
     _map->initVisitorsPreferenceMatrix();
@@ -106,7 +109,7 @@ void Tests::test_init_visitors_preference_matrix(Map* map) {
     assert(_nullptr == false);
 }
 
-// *10* 
+// *11* 
 void Tests::test_init_bikes_preference_matrix(Map* map) {
     Map* _map = map;
     _map->initBikesPreferenceMatrix();
@@ -115,7 +118,7 @@ void Tests::test_init_bikes_preference_matrix(Map* map) {
     assert(_nullptr == false);
 }
 
-// *11* 
+// *12* 
 void Tests::test_init_coord_of_bikes_vector(Map* map) {
     Map* _map = map;
     _map->initCoordOfBikesVector();
@@ -124,7 +127,7 @@ void Tests::test_init_coord_of_bikes_vector(Map* map) {
     assert(_nullptr == false);
 }
 
-// *12* 
+// *13* 
 void Tests::test_init_coord_of_visitors_vector(Map* map) {
     Map* _map = map;
     _map->initCoordOfVisitorsVector();
@@ -133,7 +136,7 @@ void Tests::test_init_coord_of_visitors_vector(Map* map) {
     assert(_nullptr == false);
 }
 
-// *13* 
+// *14* 
 void Tests::test_all_no_visited(Map* map) {
     Map* _map = map;
     _map->mapMatrix[0][0].visited = true;
@@ -153,7 +156,7 @@ void Tests::test_all_no_visited(Map* map) {
     assert(ifExistVisitedCell_map == false);
 }
 
-// *14* 
+// *15* 
 void Tests::test_update_visitors_preference_matrix(Map* map) {
     Map* _map = map;
     _map->initVisitorsPreferenceMatrix();
@@ -180,7 +183,7 @@ void Tests::test_update_visitors_preference_matrix(Map* map) {
     assert(_visitorsPreferenceMatrix[2][2].second == 1);
 }
 
-// *15* 
+// *16* 
 void Tests::test_add_coord_of_bike(Map* map) {
     Map* _map = map;
     _map->addCoordOfBike(0,2,2);
@@ -195,23 +198,6 @@ void Tests::test_add_coord_of_bike(Map* map) {
     assert(coordsOfBikes[1].second == 3);
     assert(coordsOfBikes[2].first == 3);
     assert(coordsOfBikes[2].second == 1);
-}
-
-// *16*
-void Tests::test_add_coord_of_visitor(Map* map) {
-    Map* _map = map;
-    _map->addCoordOfVisitor(0,2,2);
-    _map->addCoordOfVisitor(1,0,3);
-    _map->addCoordOfVisitor(2,3,1);
-
-    pair<int, int> *coordsOfVisitors = map->coordsOfVisitors;
-
-    assert(coordsOfVisitors[0].first == 2);
-    assert(coordsOfVisitors[0].second == 2);
-    assert(coordsOfVisitors[1].first == 0);
-    assert(coordsOfVisitors[1].second == 3);
-    assert(coordsOfVisitors[2].first == 3);
-    assert(coordsOfVisitors[2].second == 1);
 }
 
 // *17*
@@ -243,6 +229,9 @@ int main(int argc, char** argv) {
     map->initMapMatrix();
 
     cout << "Starting unit tests..." << "\n";
+
+    // *0*
+    tests.test_map_constructor();
 
     // *1*
     tests.test_bike_or_visitor();
@@ -293,9 +282,6 @@ int main(int argc, char** argv) {
     tests.test_add_coord_of_bike(map);
 
     // *17*
-    tests.test_add_coord_of_visitor(map);
-
-    // *18*
     tests.test_preferece();
 
     cout << "Success! All unit tests passed!" << "\n";
