@@ -155,10 +155,8 @@ void Tests::test_update_visitors_preference_matrix(Map* map) {
     _map->initVisitorsPreferenceMatrix();
     _map->updateVisitorsPreferenceMatrix(0,0,1,1);
 
-    pair<int,int>** _visitorsPreferenceMatrix = _map->visitorsPreferenceMatrix;
-
-    assert(_visitorsPreferenceMatrix[0][0].first == 1);
-    assert(_visitorsPreferenceMatrix[0][0].second == 1);
+    assert(_map->visitorsPreferenceMatrix[0][0].first == 1);
+    assert(_map->visitorsPreferenceMatrix[0][0].second == 1);
 }
 
 // *16*
@@ -311,6 +309,24 @@ void Tests::test_stable_matching_output() {
     assert(buffer.str() == expectedOutput);
 }
 
+void Tests::test_change_map_matrix_cell(Map* map) {
+    Map* _map = map;
+
+    _map->updateMapMatrixCell(2, 3, true, -1, -1);
+    _map->updateMapMatrixCell(1, 4, false, 2, -1);
+    _map->updateMapMatrixCell(0, 2, false, -1, 3);
+
+    assert(_map->mapMatrix[2][3].obstacle == true);
+    assert(_map->mapMatrix[1][4].bikeID == 2);
+    assert(_map->mapMatrix[0][2].visitorID == 3);
+
+    _map->updateMapMatrixCell(2, 3, false, 2, -1);
+    _map->updateMapMatrixCell(1, 4, true, -1, -1);
+
+    assert(_map->mapMatrix[1][4].obstacle == true);
+    assert(_map->mapMatrix[2][3].bikeID == 2);
+}
+
 int main(int argc, char** argv) {
 
     Tests tests;
@@ -407,7 +423,7 @@ int main(int argc, char** argv) {
     tests.test_stable_matching_output();
 
     // *30*
-
+    tests.test_change_map_matrix_cell(map);
 
     cout << "Success! All unit tests passed!" << "\n";
 
