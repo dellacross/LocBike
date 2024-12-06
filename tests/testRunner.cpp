@@ -176,10 +176,10 @@ void Tests::test_add_coord_of_bike(Map* map) {
 void Tests::test_add_coord_of_visitor(Map* map) {
     Map* _map = map;
 
-    map->initCoordOfVisitorsVector();
-    map->addCoordOfVisitor(0, 1, 2);
+    _map->initCoordOfVisitorsVector();
+    _map->addCoordOfVisitor(0, 1, 2);
 
-    pair<int, int> *v = map->getCoordsOfVisitors();
+    pair<int, int> *v = _map->getCoordsOfVisitors();
 
     assert(v[0].first == 1);
     assert(v[0].second == 2);
@@ -310,8 +310,6 @@ void Tests::test_stable_matching_output() {
     string expectedOutput = "a 1\nb 0\n";
     assert(buffer.str() == expectedOutput);
 }
-
-
 
 int main(int argc, char** argv) {
 

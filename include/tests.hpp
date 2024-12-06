@@ -102,7 +102,6 @@ class Tests
         void test_stable_matching_output();
 
         // *30*
-        void test_constructor();
 
     friend class Map;
 };
