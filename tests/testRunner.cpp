@@ -327,6 +327,105 @@ void Tests::test_change_map_matrix_cell(Map* map) {
     assert(_map->mapMatrix[2][3].bikeID == 2);
 }
 
+void exec_system(string filePath) {
+    fstream file(filePath);
+    if (file)
+    {
+        string line = "";
+        vector<int> values = getDimensions(file);
+
+        int n = values[0], x = values[1], y = values[2];
+
+        Map map(x, y, n);
+
+        setMapMatrixCells(file, map, x, y, n);
+        pair<int, int> vm[n][n];
+        vector<int> auxV;
+        for (int i = 0; i < n; i++)
+        {
+            int aux = 0;
+            getline(file, line);
+            stringstream auxLine(line);
+
+            for (int j = 0; j < n; j++)
+            {
+                auxLine >> aux;
+                vm[i][j].first = j;
+                vm[i][j].second = aux;
+            }
+        }
+
+        int g = -1, gpos = -1;
+        //cout << "n:" << n << "\n";
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                for (int k = 0; k < n; k++)
+                {
+                    if (vm[i][k].second >= g && !ifExists(k, auxV))
+                    {
+                        //cout << "i:" << i << " k:" << k << "\n";
+                        g = vm[i][k].second;
+                        gpos = k;
+                    }
+                }
+                auxV.push_back(gpos);
+                map.updateVisitorsPreferenceMatrix(i, j, gpos, g);
+                g = -1;
+                gpos = -1;
+            }
+            auxV.clear();
+        }
+        
+        map.GaleShapley(filePath, true);
+        file.close();
+    }
+    else
+        cout << "ERROR: FILE NOT FOUND!"
+             << "\n";
+}
+
+void compareFiles(string fileName) {
+    char fileNumber = fileName[fileName.length() - 4];
+
+    string outputFilePath = "tests/file";
+    outputFilePath = outputFilePath + fileNumber + "_output.out";
+
+    string expectedOutputFilePath = "tests/teste";
+    expectedOutputFilePath = expectedOutputFilePath + fileNumber + ".out";
+    
+    ifstream outputFile(outputFilePath, ios::binary | ios::ate);
+    ifstream expectedOutputFile(expectedOutputFilePath, ios::binary | ios::ate);
+
+    bool equal = true;
+
+    if(outputFile.tellg() != expectedOutputFile.tellg())
+        equal = false;
+
+    outputFile.seekg(0);
+    expectedOutputFile.seekg(0);
+
+    const size_t bufferSize = 4096;
+    vector<char> buffer1(bufferSize);
+    vector<char> buffer2(bufferSize);
+
+    do {
+        outputFile.read(buffer1.data(), bufferSize);
+        expectedOutputFile.read(buffer2.data(), bufferSize);
+
+        if(buffer1 != buffer2) 
+            equal = false;
+            
+    } while (outputFile.good() && expectedOutputFile.good());
+
+    outputFile.close();
+    expectedOutputFile.close();
+    
+    assert(equal == true);
+}
+
+
 int main(int argc, char** argv) {
 
     Tests tests;
@@ -426,6 +525,13 @@ int main(int argc, char** argv) {
     tests.test_change_map_matrix_cell(map);
 
     cout << "Success! All unit tests passed!" << "\n";
+
+    cout << "Starting system tests..." << "\n";
+
+    exec_system(argv[1]);
+    compareFiles(argv[1]);
+
+    cout << "Success! All system tests passed!" << "\n";
 
     cout << "All tests passed for '" << argv[1] << "' file!\n";
     
