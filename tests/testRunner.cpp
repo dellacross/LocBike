@@ -331,6 +331,7 @@ void Tests::test_change_map_matrix_cell(Map* map) {
 
 void Tests::test_basic_matching_no_obstacles() {
     Map map(3, 3, 2); // 3x3 map with 2 bikes and 2 visitors
+    map.initMapMatrix();
     
     // Add bikes and visitors
     map.updateMapMatrixCell(0, 0, false, 0, -1);  // Bike 0
@@ -364,6 +365,32 @@ void Tests::test_basic_matching_no_obstacles() {
     
     assert(matches[0] == "a 0");
     assert(matches[1] == "b 1");
+}
+
+void Tests::matching_with_obstacles() {
+    Map map(4, 4, 2);
+    
+    // Add obstacles in the middle
+    map.updateMapMatrixCell(1, 1, true, -1, -1);
+    map.updateMapMatrixCell(1, 2, true, -1, -1);
+    map.updateMapMatrixCell(2, 1, true, -1, -1);
+    map.updateMapMatrixCell(2, 2, true, -1, -1);
+    
+    // Add bikes and visitors
+    map.updateMapMatrixCell(0, 0, false, 0, -1);
+    map.updateMapMatrixCell(3, 3, false, 1, -1);
+    map.updateMapMatrixCell(0, 3, false, -1, 0);
+    map.updateMapMatrixCell(3, 0, false, -1, 1);
+    
+    map.addCoordOfBike(0, 0, 0);
+    map.addCoordOfBike(1, 3, 3);
+    map.addCoordOfVisitor(0, 0, 3);
+    map.addCoordOfVisitor(1, 3, 0);
+    
+    map.updateBikesPreferenceMatrix();
+    
+    // Verify path distances with obstacles
+    assert(map.BFS(0, 0, 0, 3) == 6); // Should take longer path around obstacles
 }
 
 int main(int argc, char** argv) {
@@ -472,6 +499,7 @@ int main(int argc, char** argv) {
     //tests.test_basic_matching_no_obstacles();
 
     // *2*
+    tests.matching_with_obstacles();
     // *3*
     // *4*
     // *5*

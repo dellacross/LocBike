@@ -107,6 +107,9 @@ class Tests
         // *1*
         void test_basic_matching_no_obstacles();
 
+        // *2*
+        void matching_with_obstacles();
+
     friend class Map;
 };
 
