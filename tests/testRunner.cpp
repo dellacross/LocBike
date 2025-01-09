@@ -327,6 +327,8 @@ void Tests::test_change_map_matrix_cell(Map* map) {
     assert(_map->mapMatrix[2][3].bikeID == 2);
 }
 
+// SYSTEM/INTEGRATION TESTS
+
 void Tests::test_basic_matching_no_obstacles() {
     Map map(3, 3, 2); // 3x3 map with 2 bikes and 2 visitors
     
@@ -466,7 +468,18 @@ int main(int argc, char** argv) {
 
     cout << "Starting system tests..." << "\n";
 
+    // *1*
+    tests.test_basic_matching_no_obstacles();
 
+    // *2*
+    // *3*
+    // *4*
+    // *5*
+    // *6*
+    // *7*
+    // *8*
+    // *9*
+    // *10*
 
     cout << "Success! All system tests passed!" << "\n";
 
