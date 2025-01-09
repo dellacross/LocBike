@@ -400,6 +400,7 @@ void Tests::max_map_size() {
 
 void Tests::single_match() {
     Map map(2, 2, 1);
+    map.initMapMatrix();
     
     map.updateMapMatrixCell(0, 0, false, 0, -1);
     map.updateMapMatrixCell(1, 1, false, -1, 0);
