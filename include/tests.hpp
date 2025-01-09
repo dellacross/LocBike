@@ -104,6 +104,9 @@ class Tests
         // *30*
         void test_change_map_matrix_cell(Map* map);
 
+        // *1*
+        void test_basic_matching_no_obstacles();
+
     friend class Map;
 };
 
