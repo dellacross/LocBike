@@ -398,6 +398,27 @@ void Tests::max_map_size() {
     assert(map.getNumberOfElements() == 10);
 }
 
+void Tests::single_match() {
+    Map map(2, 2, 1);
+    
+    map.updateMapMatrixCell(0, 0, false, 0, -1);
+    map.updateMapMatrixCell(1, 1, false, -1, 0);
+    
+    map.addCoordOfBike(0, 0, 0);
+    map.addCoordOfVisitor(0, 1, 1);
+    
+    map.updateBikesPreferenceMatrix();
+    map.updateVisitorsPreferenceMatrix(0, 0, 0, 1);
+    
+    map.GaleShapley("test4.txt", true);
+    
+    std::ifstream output("tests/file4_output.out");
+    std::string line;
+    std::getline(output, line);
+    
+    assert(line == "a 0");
+}
+
 int main(int argc, char** argv) {
 
     Tests tests;
@@ -508,8 +529,10 @@ int main(int argc, char** argv) {
 
     // *3*
     tests.max_map_size();
-    
+
     // *4*
+    tests.single_match();
+
     // *5*
     // *6*
     // *7*

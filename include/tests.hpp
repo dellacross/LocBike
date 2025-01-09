@@ -113,6 +113,16 @@ class Tests
         // *3*
         void max_map_size();
 
+        // *4*
+        void single_match();
+
+        // *5*
+        // *6*
+        // *7*
+        // *8*
+        // *9*
+        // *10*
+
     friend class Map;
 };
 
