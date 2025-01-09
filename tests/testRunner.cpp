@@ -1,4 +1,3 @@
-#include <gtest/gtest.h>
 #include "tests.hpp"
 #include "functions.hpp"
 #include <cassert>
