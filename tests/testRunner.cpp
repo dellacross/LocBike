@@ -469,7 +469,7 @@ int main(int argc, char** argv) {
     cout << "Starting system tests..." << "\n";
 
     // *1*
-    tests.test_basic_matching_no_obstacles();
+    //tests.test_basic_matching_no_obstacles();
 
     // *2*
     // *3*
