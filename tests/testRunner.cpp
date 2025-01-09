@@ -369,8 +369,10 @@ void Tests::test_basic_matching_no_obstacles() {
 
 void Tests::matching_with_obstacles() {
     Map map(4, 4, 2);
+    map.initMapMatrix();
     
     // Add obstacles in the middle
+    map.updateMapMatrixCell(0, 1, true, -1, -1);
     map.updateMapMatrixCell(1, 1, true, -1, -1);
     map.updateMapMatrixCell(1, 2, true, -1, -1);
     map.updateMapMatrixCell(2, 1, true, -1, -1);
@@ -392,7 +394,7 @@ void Tests::matching_with_obstacles() {
     // Verify path distances with obstacles
     int res = map.BFS(0, 0, 0, 3);
     cout << res << '\n';
-    assert(res == 3); // Should take longer path around obstacles
+    assert(res == 6); // Should take longer path around obstacles
 }
 
 int main(int argc, char** argv) {
