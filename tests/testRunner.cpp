@@ -390,7 +390,9 @@ void Tests::matching_with_obstacles() {
     map.updateBikesPreferenceMatrix();
     
     // Verify path distances with obstacles
-    assert(map.BFS(0, 0, 0, 3) == 6); // Should take longer path around obstacles
+    int res = map.BFS(0, 0, 0, 3);
+    cout << res << '\n';
+    assert(res == 6); // Should take longer path around obstacles
 }
 
 int main(int argc, char** argv) {
