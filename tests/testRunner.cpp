@@ -416,8 +416,136 @@ void Tests::single_match() {
     std::string line;
     std::getline(output, line);
     
+    cout << 'resultado line: ' << line << '\n';
     assert(line == "a 0");
 }
+
+/*
+
+TEST_F(MapIntegrationTest, PreferenceOrdering) {
+    Map map(3, 3, 3);
+    
+    // Add three bikes and visitors in specific positions
+    for(int i = 0; i < 3; i++) {
+        map.updateMapMatrixCell(i, 0, false, i, -1);
+        map.updateMapMatrixCell(i, 2, false, -1, i);
+        map.addCoordOfBike(i, i, 0);
+        map.addCoordOfVisitor(i, i, 2);
+    }
+    
+    map.updateBikesPreferenceMatrix();
+    
+    // Verify preference matrix is properly sorted
+    auto** bikePrefs = map.getBikesPreferenceMatrix();
+    for(int i = 0; i < 3; i++) {
+        for(int j = 1; j < 3; j++) {
+            EXPECT_GE(bikePrefs[i][j-1].second, bikePrefs[i][j].second);
+        }
+    }
+}
+
+// Test 6: Isolated paths test
+TEST_F(MapIntegrationTest, IsolatedPaths) {
+    Map map(5, 5, 2);
+    
+    // Create wall of obstacles between bikes and visitors
+    for(int i = 0; i < 5; i++) {
+        map.updateMapMatrixCell(2, i, true, -1, -1);
+    }
+    
+    map.updateMapMatrixCell(0, 0, false, 0, -1);
+    map.updateMapMatrixCell(0, 4, false, 1, -1);
+    map.updateMapMatrixCell(4, 0, false, -1, 0);
+    map.updateMapMatrixCell(4, 4, false, -1, 1);
+    
+    map.addCoordOfBike(0, 0, 0);
+    map.addCoordOfBike(1, 0, 4);
+    map.addCoordOfVisitor(0, 4, 0);
+    map.addCoordOfVisitor(1, 4, 4);
+    
+    // Verify no path exists
+    EXPECT_EQ(map.BFS(0, 0, 4, 0), -1);
+}
+
+// Test 7: Memory management test
+TEST_F(MapIntegrationTest, MemoryManagement) {
+    {
+        Map map(10, 10, 5);
+        // Let destructor handle cleanup
+    }
+    // If we reach here without memory errors, test passes
+    SUCCEED();
+}
+
+// Test 8: Preference conflict resolution
+TEST_F(MapIntegrationTest, PreferenceConflict) {
+    Map map(3, 3, 2);
+    
+    // Set up scenario where both visitors prefer the same bike
+    map.updateMapMatrixCell(0, 0, false, 0, -1);
+    map.updateMapMatrixCell(2, 2, false, 1, -1);
+    map.updateMapMatrixCell(0, 2, false, -1, 0);
+    map.updateMapMatrixCell(2, 0, false, -1, 1);
+    
+    map.addCoordOfBike(0, 0, 0);
+    map.addCoordOfBike(1, 2, 2);
+    map.addCoordOfVisitor(0, 0, 2);
+    map.addCoordOfVisitor(1, 2, 0);
+    
+    // Both visitors prefer bike 0
+    map.updateVisitorsPreferenceMatrix(0, 0, 0, 1);
+    map.updateVisitorsPreferenceMatrix(0, 1, 1, 2);
+    map.updateVisitorsPreferenceMatrix(1, 0, 0, 1);
+    map.updateVisitorsPreferenceMatrix(1, 1, 1, 2);
+    
+    map.GaleShapley("test8.txt", true);
+    
+    // Verify stable matching was achieved
+    std::ifstream output("tests/file8_output.out");
+    std::vector<std::string> matches;
+    std::string line;
+    while (std::getline(output, line)) {
+        matches.push_back(line);
+    }
+    EXPECT_EQ(matches.size(), 2);
+}
+
+// Test 9: All cells visited test
+TEST_F(MapIntegrationTest, AllCellsVisited) {
+    Map map(3, 3, 1);
+    
+    // Visit all cells
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            map.getMapMatrix()[i][j].visited = true;
+        }
+    }
+    
+    map.allNoVisited();
+    
+    // Verify all cells are marked as not visited
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            EXPECT_FALSE(map.getMapMatrix()[i][j].visited);
+        }
+    }
+}
+
+// Test 10: Invalid cell access test
+TEST_F(MapIntegrationTest, InvalidCellAccess) {
+    Map map(5, 5, 2);
+    
+    // Test boundary conditions
+    EXPECT_FALSE(map.checkCell(-1, 0));
+    EXPECT_FALSE(map.checkCell(0, -1));
+    EXPECT_FALSE(map.checkCell(5, 0));
+    EXPECT_FALSE(map.checkCell(0, 5));
+    
+    // Test valid cell
+    EXPECT_TRUE(map.checkCell(2, 2));
+}
+
+*/
 
 int main(int argc, char** argv) {
 
