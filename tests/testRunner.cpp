@@ -391,6 +391,13 @@ void Tests::matching_with_obstacles() {
     assert(map.BFS(0, 0, 0, 3) == 3);
 }
 
+void Tests::max_map_size() {
+    Map map(100, 100, 10);
+    assert(map.getDimX() == 100);
+    assert(map.getDimY() == 100);
+    assert(map.getNumberOfElements() == 10);
+}
+
 int main(int argc, char** argv) {
 
     Tests tests;
@@ -498,7 +505,10 @@ int main(int argc, char** argv) {
 
     // *2*
     tests.matching_with_obstacles();
+
     // *3*
+    tests.max_map_size();
+    
     // *4*
     // *5*
     // *6*

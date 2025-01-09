@@ -110,6 +110,9 @@ class Tests
         // *2*
         void matching_with_obstacles();
 
+        // *3*
+        void max_map_size();
+
     friend class Map;
 };
 
