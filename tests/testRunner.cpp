@@ -642,11 +642,8 @@ int main(int argc, char** argv) {
 
     cout << "Success! All unit tests passed!" << "\n";
 
-    cout << "Starting system tests..." << "\n";
-
-    cout << "Success! All system tests passed!" << "\n";
-
-    cout << "All tests passed for '" << argv[1] << "' file!\n";
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
     
     return 0;
 }
