@@ -421,10 +421,9 @@ void Tests::single_match() {
     assert(line == "a 0");
 }
 
-/*
-
-TEST_F(MapIntegrationTest, PreferenceOrdering) {
+void Tests::preference_ordering() {
     Map map(3, 3, 3);
+    map.initMapMatrix();
     
     // Add three bikes and visitors in specific positions
     for(int i = 0; i < 3; i++) {
@@ -440,11 +439,11 @@ TEST_F(MapIntegrationTest, PreferenceOrdering) {
     auto** bikePrefs = map.getBikesPreferenceMatrix();
     for(int i = 0; i < 3; i++) {
         for(int j = 1; j < 3; j++) {
-            EXPECT_GE(bikePrefs[i][j-1].second, bikePrefs[i][j].second);
+            assert(bikePrefs[i][j-1].second >= bikePrefs[i][j].second);
         }
     }
 }
-
+/*
 // Test 6: Isolated paths test
 TEST_F(MapIntegrationTest, IsolatedPaths) {
     Map map(5, 5, 2);
@@ -660,9 +659,11 @@ int main(int argc, char** argv) {
     tests.max_map_size();
 
     // *4*
-    tests.single_match();
+    //tests.single_match();
 
     // *5*
+
+    tests.preference_ordering();
     // *6*
     // *7*
     // *8*

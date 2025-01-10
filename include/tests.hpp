@@ -117,6 +117,8 @@ class Tests
         void single_match();
 
         // *5*
+        void preference_ordering();
+
         // *6*
         // *7*
         // *8*
