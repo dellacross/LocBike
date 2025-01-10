@@ -419,7 +419,7 @@ void Tests::single_match() {
     ifstream output("tests/file4_output.out");
     string line;
     getline(output, line);
-    
+
     assert(line == "a 0");
 }
 
@@ -670,7 +670,7 @@ int main(int argc, char** argv) {
     tests.max_map_size();
 
     // *4*
-    //tests.single_match();
+    tests.single_match();
 
     // *5*
     tests.preference_ordering();
