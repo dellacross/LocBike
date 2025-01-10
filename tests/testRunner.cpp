@@ -425,7 +425,6 @@ void Tests::preference_ordering() {
     Map map(3, 3, 3);
     map.initMapMatrix();
     
-    // Add three bikes and visitors in specific positions
     for(int i = 0; i < 3; i++) {
         map.updateMapMatrixCell(i, 0, false, i, -1);
         map.updateMapMatrixCell(i, 2, false, -1, i);
@@ -435,11 +434,10 @@ void Tests::preference_ordering() {
     
     map.updateBikesPreferenceMatrix();
     
-    // Verify preference matrix is properly sorted
     auto** bikePrefs = map.getBikesPreferenceMatrix();
     for(int i = 0; i < 3; i++) {
         for(int j = 1; j < 3; j++) {
-            assert(bikePrefs[i][j-1].second >= bikePrefs[i][j].second);
+            assert(bikePrefs[i][j-1].second <= bikePrefs[i][j].second);
         }
     }
 }
