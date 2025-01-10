@@ -3,6 +3,7 @@
 #include <cassert>
 #include <utility> 
 #include <algorithm>
+#include <array>
 
 // UNIT TESTS
 
@@ -356,10 +357,10 @@ void Tests::test_basic_matching_no_obstacles() {
     map.GaleShapley("test1.txt", true);
     
     // Verify output file contains expected matches
-    std::ifstream output("tests/file1_output.out");
-    std::string line;
-    std::vector<std::string> matches;
-    while (std::getline(output, line)) {
+    ifstream output("tests/file1_output.out");
+    string line;
+    vector<string> matches;
+    while (getline(output, line)) {
         matches.push_back(line);
     }
     
@@ -413,11 +414,10 @@ void Tests::single_match() {
     
     map.GaleShapley("test4.txt", true);
     
-    std::ifstream output("tests/file4_output.out");
-    std::string line;
-    std::getline(output, line);
+    ifstream output("tests/file4_output.out");
+    string line;
+    getline(output, line);
     
-    cout << 'resultado line: ' << line << '\n';
     assert(line == "a 0");
 }
 
@@ -431,14 +431,18 @@ void Tests::preference_ordering() {
         map.addCoordOfBike(i, i, 0);
         map.addCoordOfVisitor(i, i, 2);
     }
+
+    array<array<int, 2>, 6> coordinates = {{
+        {2, 3},
+        {3, 2},
+        {4, 3}
+    }};
     
     map.updateBikesPreferenceMatrix();
     
     auto** bikePrefs = map.getBikesPreferenceMatrix();
     for(int i = 0; i < 3; i++) {
-        for(int j = 1; j < 3; j++) {
-            assert(bikePrefs[i][j-1].second <= bikePrefs[i][j].second);
-        }
+        for(int j = 1; j < 3; j++) assert(bikePrefs[i][j-1].second == coordinates[i][j-1]);
     }
 }
 /*
@@ -499,10 +503,10 @@ TEST_F(MapIntegrationTest, PreferenceConflict) {
     map.GaleShapley("test8.txt", true);
     
     // Verify stable matching was achieved
-    std::ifstream output("tests/file8_output.out");
-    std::vector<std::string> matches;
-    std::string line;
-    while (std::getline(output, line)) {
+    ifstream output("tests/file8_output.out");
+    vector<string> matches;
+    string line;
+    while (getline(output, line)) {
         matches.push_back(line);
     }
     EXPECT_EQ(matches.size(), 2);
