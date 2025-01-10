@@ -120,10 +120,19 @@ class Tests
         void preference_ordering();
 
         // *6*
+        void isolated_paths();
+
         // *7*
+        void memory_management();
+
         // *8*
+        void preference_conflict();
+
         // *9*
+        void all_cells_no_visited_after_bfs();
+
         // *10*
+        void invalid_cell_access();
 
     friend class Map;
 };

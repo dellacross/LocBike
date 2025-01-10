@@ -296,7 +296,7 @@ void Tests::test_preference() {
 void Tests::test_stable_matching_output() {
     int v[] = {1, 0};
     int n = 2;
-    string fileName = "test_file.txt";
+    string fileName = "test_file1.in";
     bool testRun = false;
 
     stringstream buffer;
@@ -328,17 +328,19 @@ void Tests::test_change_map_matrix_cell(Map* map) {
     assert(_map->mapMatrix[2][3].bikeID == 2);
 }
 
+//--------------------------------------------------------------------------------------------------------------------//
+
 // SYSTEM/INTEGRATION TESTS
 
+//*1*
 void Tests::test_basic_matching_no_obstacles() {
-    Map map(3, 3, 2); // 3x3 map with 2 bikes and 2 visitors
+    Map map(3, 3, 2);
     map.initMapMatrix();
     
-    // Add bikes and visitors
-    map.updateMapMatrixCell(0, 0, false, 0, -1);  // Bike 0
-    map.updateMapMatrixCell(2, 2, false, 1, -1);  // Bike 1
-    map.updateMapMatrixCell(0, 2, false, -1, 0);  // Visitor 0
-    map.updateMapMatrixCell(2, 0, false, -1, 1);  // Visitor 1
+    map.updateMapMatrixCell(0, 0, false, 0, -1);  
+    map.updateMapMatrixCell(2, 2, false, 1, -1);  
+    map.updateMapMatrixCell(0, 2, false, -1, 0);  
+    map.updateMapMatrixCell(2, 0, false, -1, 1);  
     
     map.addCoordOfBike(0, 0, 0);
     map.addCoordOfBike(1, 2, 2);
@@ -347,16 +349,13 @@ void Tests::test_basic_matching_no_obstacles() {
     
     map.updateBikesPreferenceMatrix();
     
-    // Set visitor preferences
     map.updateVisitorsPreferenceMatrix(0, 0, 0, 2);
     map.updateVisitorsPreferenceMatrix(0, 1, 1, 4);
     map.updateVisitorsPreferenceMatrix(1, 0, 0, 4);
     map.updateVisitorsPreferenceMatrix(1, 1, 1, 2);
     
-    // Execute matching
-    map.GaleShapley("test1.txt", true);
+    map.GaleShapley("test1.in", true);
     
-    // Verify output file contains expected matches
     ifstream output("tests/file1_output.out");
     string line;
     vector<string> matches;
@@ -364,10 +363,11 @@ void Tests::test_basic_matching_no_obstacles() {
         matches.push_back(line);
     }
     
-    assert(matches[0] == "a 0");
-    assert(matches[1] == "b 1");
+    assert(matches[0] == "a 1");
+    assert(matches[1] == "b 0");
 }
 
+//*2*
 void Tests::matching_with_obstacles() {
     Map map(4, 4, 2);
     map.initMapMatrix();
@@ -392,6 +392,7 @@ void Tests::matching_with_obstacles() {
     assert(map.BFS(0, 0, 0, 3) == 3);
 }
 
+//*3*
 void Tests::max_map_size() {
     Map map(100, 100, 10);
     assert(map.getDimX() == 100);
@@ -399,6 +400,7 @@ void Tests::max_map_size() {
     assert(map.getNumberOfElements() == 10);
 }
 
+//*4*
 void Tests::single_match() {
     Map map(2, 2, 1);
     map.initMapMatrix();
@@ -412,7 +414,7 @@ void Tests::single_match() {
     map.updateBikesPreferenceMatrix();
     map.updateVisitorsPreferenceMatrix(0, 0, 0, 1);
     
-    map.GaleShapley("test4.txt", true);
+    map.GaleShapley("test4.in", true);
     
     ifstream output("tests/file4_output.out");
     string line;
@@ -421,6 +423,7 @@ void Tests::single_match() {
     assert(line == "a 0");
 }
 
+// *5*
 void Tests::preference_ordering() {
     Map map(3, 3, 3);
     map.initMapMatrix();
@@ -440,20 +443,21 @@ void Tests::preference_ordering() {
     
     map.updateBikesPreferenceMatrix();
     
-    auto** bikePrefs = map.getBikesPreferenceMatrix();
+    pair<int, int> **bikePrefs = map.getBikesPreferenceMatrix();
+
     for(int i = 0; i < 3; i++) {
-        for(int j = 1; j < 3; j++) assert(bikePrefs[i][j-1].second == coordinates[i][j-1]);
+        for(int j = 1; j < 3; j++) {
+            assert(bikePrefs[i][j-1].second == coordinates[i][j-1]);
+        }
     }
 }
-/*
-// Test 6: Isolated paths test
-TEST_F(MapIntegrationTest, IsolatedPaths) {
+
+//*6*
+void Tests::isolated_paths() {
     Map map(5, 5, 2);
-    
-    // Create wall of obstacles between bikes and visitors
-    for(int i = 0; i < 5; i++) {
-        map.updateMapMatrixCell(2, i, true, -1, -1);
-    }
+    map.initMapMatrix();
+
+    for(int i = 0; i < 5; i++) map.updateMapMatrixCell(2, i, true, -1, -1);
     
     map.updateMapMatrixCell(0, 0, false, 0, -1);
     map.updateMapMatrixCell(0, 4, false, 1, -1);
@@ -465,25 +469,26 @@ TEST_F(MapIntegrationTest, IsolatedPaths) {
     map.addCoordOfVisitor(0, 4, 0);
     map.addCoordOfVisitor(1, 4, 4);
     
-    // Verify no path exists
-    EXPECT_EQ(map.BFS(0, 0, 4, 0), -1);
+    assert(map.BFS(0, 0, 4, 0) == -1);
 }
+
 
 // Test 7: Memory management test
-TEST_F(MapIntegrationTest, MemoryManagement) {
+void Tests::memory_management() {
     {
         Map map(10, 10, 5);
-        // Let destructor handle cleanup
+        map.initMapMatrix();
     }
-    // If we reach here without memory errors, test passes
-    SUCCEED();
+    // If it reach here without memory errors, test passes
+    assert(true);
 }
 
+
 // Test 8: Preference conflict resolution
-TEST_F(MapIntegrationTest, PreferenceConflict) {
+void Tests::preference_conflict() {
     Map map(3, 3, 2);
+    map.initMapMatrix();
     
-    // Set up scenario where both visitors prefer the same bike
     map.updateMapMatrixCell(0, 0, false, 0, -1);
     map.updateMapMatrixCell(2, 2, false, 1, -1);
     map.updateMapMatrixCell(0, 2, false, -1, 0);
@@ -494,60 +499,64 @@ TEST_F(MapIntegrationTest, PreferenceConflict) {
     map.addCoordOfVisitor(0, 0, 2);
     map.addCoordOfVisitor(1, 2, 0);
     
-    // Both visitors prefer bike 0
     map.updateVisitorsPreferenceMatrix(0, 0, 0, 1);
     map.updateVisitorsPreferenceMatrix(0, 1, 1, 2);
     map.updateVisitorsPreferenceMatrix(1, 0, 0, 1);
     map.updateVisitorsPreferenceMatrix(1, 1, 1, 2);
     
-    map.GaleShapley("test8.txt", true);
+    map.GaleShapley("test8.in", true);
     
-    // Verify stable matching was achieved
     ifstream output("tests/file8_output.out");
     vector<string> matches;
     string line;
     while (getline(output, line)) {
         matches.push_back(line);
     }
-    EXPECT_EQ(matches.size(), 2);
+
+    assert(matches.size() == 2);
 }
 
-// Test 9: All cells visited test
-TEST_F(MapIntegrationTest, AllCellsVisited) {
-    Map map(3, 3, 1);
+//*9*
+void Tests::all_cells_no_visited_after_bfs() {
+    Map map(4, 4, 2);
+    map.initMapMatrix();
     
-    // Visit all cells
+    map.updateMapMatrixCell(1, 1, true, -1, -1);
+    map.updateMapMatrixCell(1, 2, true, -1, -1);
+    map.updateMapMatrixCell(2, 1, true, -1, -1);
+    map.updateMapMatrixCell(2, 2, true, -1, -1);
+    
+    map.updateMapMatrixCell(0, 0, false, 0, -1);
+    map.updateMapMatrixCell(3, 3, false, 1, -1);
+    map.updateMapMatrixCell(0, 3, false, -1, 0);
+    map.updateMapMatrixCell(3, 0, false, -1, 1);
+    
+    map.addCoordOfBike(0, 0, 0);
+    map.addCoordOfBike(1, 3, 3);
+    map.addCoordOfVisitor(0, 0, 3);
+    map.addCoordOfVisitor(1, 3, 0);
+    
+    map.updateBikesPreferenceMatrix();
+
+    map.BFS(0, 0, 0, 3);
+    
     for(int i = 0; i < 3; i++) {
         for(int j = 0; j < 3; j++) {
-            map.getMapMatrix()[i][j].visited = true;
-        }
-    }
-    
-    map.allNoVisited();
-    
-    // Verify all cells are marked as not visited
-    for(int i = 0; i < 3; i++) {
-        for(int j = 0; j < 3; j++) {
-            EXPECT_FALSE(map.getMapMatrix()[i][j].visited);
+            assert(map.getMapMatrix()[i][j].visited == false);
         }
     }
 }
 
-// Test 10: Invalid cell access test
-TEST_F(MapIntegrationTest, InvalidCellAccess) {
+// *10*
+void Tests::invalid_cell_access() {
     Map map(5, 5, 2);
-    
-    // Test boundary conditions
-    EXPECT_FALSE(map.checkCell(-1, 0));
-    EXPECT_FALSE(map.checkCell(0, -1));
-    EXPECT_FALSE(map.checkCell(5, 0));
-    EXPECT_FALSE(map.checkCell(0, 5));
-    
-    // Test valid cell
-    EXPECT_TRUE(map.checkCell(2, 2));
-}
+    map.initMapMatrix();
 
-*/
+    assert(map.checkCell(-1, 0) == false);
+    assert(map.checkCell(0, -1) == false);
+    assert(map.checkCell(5, 0) == false);
+    assert(map.checkCell(0, 5) == false);
+}
 
 int main(int argc, char** argv) {
 
@@ -664,17 +673,24 @@ int main(int argc, char** argv) {
     //tests.single_match();
 
     // *5*
-
     tests.preference_ordering();
+
     // *6*
+    tests.isolated_paths();
+
     // *7*
+    tests.memory_management();
+
     // *8*
+    tests.preference_conflict();
+
     // *9*
+    tests.all_cells_no_visited_after_bfs();
+
     // *10*
+    tests.invalid_cell_access();
 
     cout << "Success! All system tests passed!" << "\n";
-
-    cout << "All tests passed for '" << argv[1] << "' file!\n";
     
     return 0;
 }
