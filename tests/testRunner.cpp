@@ -428,36 +428,29 @@ void Tests::preference_ordering() {
     Map map(3, 3, 3);
     map.initMapMatrix();
     
-    // Initialize the map with bikes on the left and visitors on the right
     for(int i = 0; i < 3; i++) {
-        map.updateMapMatrixCell(i, 0, false, i, -1);  // bikes on left side
-        map.updateMapMatrixCell(i, 2, false, -1, i);  // visitors on right side
+        map.updateMapMatrixCell(i, 0, false, i, -1); 
+        map.updateMapMatrixCell(i, 2, false, -1, i);
         map.addCoordOfBike(i, i, 0);
         map.addCoordOfVisitor(i, i, 2);
     }
     
     map.updateBikesPreferenceMatrix();
     
-    // Get the preference matrix and verify the distances
     pair<int, int> **bikePrefs = map.getBikesPreferenceMatrix();
     
-    // Check that each bike has the correct preference ordering based on distance
-    // For each bike, verify its preferences for visitors
     for(int i = 0; i < 3; i++) {
-        // Sort visitors by distance for current bike
-        vector<pair<int, int>> distances;  // pair of (visitor_id, distance)
+        vector<pair<int, int>> distances; 
         for(int visitor = 0; visitor < 3; visitor++) {
-            int dist = map.BFS(i, 0, i, 2);  // distance from bike to visitor
+            int dist = map.BFS(i, 0, i, 2);  
             distances.push_back({visitor, dist});
         }
         
-        // Sort by distance
         sort(distances.begin(), distances.end(), 
              [](const pair<int, int>& a, const pair<int, int>& b) {
                  return a.second < b.second;
              });
         
-        // Verify that the preference matrix matches our sorted distances
         for(int j = 0; j < 3; j++) {
             assert(bikePrefs[i][j].first == distances[j].first);
         }
@@ -485,7 +478,7 @@ void Tests::isolated_paths() {
 }
 
 
-// Test 7: Memory management test
+//*7*
 void Tests::memory_management() {
     {
         Map map(10, 10, 5);
@@ -496,7 +489,7 @@ void Tests::memory_management() {
 }
 
 
-// Test 8: Preference conflict resolution
+//*8*
 void Tests::preference_conflict() {
     Map map(3, 3, 2);
     map.initMapMatrix();
