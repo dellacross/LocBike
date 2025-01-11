@@ -1,3 +1,5 @@
 bin/*
 obj/*
 tests/*_output.out
+*.gcda
+*.gcno

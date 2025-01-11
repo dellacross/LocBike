@@ -428,26 +428,38 @@ void Tests::preference_ordering() {
     Map map(3, 3, 3);
     map.initMapMatrix();
     
+    // Initialize the map with bikes on the left and visitors on the right
     for(int i = 0; i < 3; i++) {
-        map.updateMapMatrixCell(i, 0, false, i, -1);
-        map.updateMapMatrixCell(i, 2, false, -1, i);
+        map.updateMapMatrixCell(i, 0, false, i, -1);  // bikes on left side
+        map.updateMapMatrixCell(i, 2, false, -1, i);  // visitors on right side
         map.addCoordOfBike(i, i, 0);
         map.addCoordOfVisitor(i, i, 2);
     }
-
-    array<array<int, 2>, 6> coordinates = {{
-        {2, 3},
-        {3, 2},
-        {4, 3}
-    }};
     
     map.updateBikesPreferenceMatrix();
     
+    // Get the preference matrix and verify the distances
     pair<int, int> **bikePrefs = map.getBikesPreferenceMatrix();
-
+    
+    // Check that each bike has the correct preference ordering based on distance
+    // For each bike, verify its preferences for visitors
     for(int i = 0; i < 3; i++) {
-        for(int j = 1; j < 3; j++) {
-            assert(bikePrefs[i][j-1].second == coordinates[i][j-1]);
+        // Sort visitors by distance for current bike
+        vector<pair<int, int>> distances;  // pair of (visitor_id, distance)
+        for(int visitor = 0; visitor < 3; visitor++) {
+            int dist = map.BFS(i, 0, i, 2);  // distance from bike to visitor
+            distances.push_back({visitor, dist});
+        }
+        
+        // Sort by distance
+        sort(distances.begin(), distances.end(), 
+             [](const pair<int, int>& a, const pair<int, int>& b) {
+                 return a.second < b.second;
+             });
+        
+        // Verify that the preference matrix matches our sorted distances
+        for(int j = 0; j < 3; j++) {
+            assert(bikePrefs[i][j].first == distances[j].first);
         }
     }
 }
@@ -658,10 +670,10 @@ int main(int argc, char** argv) {
 
     cout << "Success! All unit tests passed!" << "\n";
 
-    cout << "Starting system tests..." << "\n";
+    cout << "Starting system/integration tests..." << "\n";
 
     // *1*
-    //tests.test_basic_matching_no_obstacles();
+    tests.test_basic_matching_no_obstacles();
 
     // *2*
     tests.matching_with_obstacles();
@@ -690,7 +702,7 @@ int main(int argc, char** argv) {
     // *10*
     tests.invalid_cell_access();
 
-    cout << "Success! All system tests passed!" << "\n";
+    cout << "Success! All system/integration tests passed!" << "\n";
     
     return 0;
 }

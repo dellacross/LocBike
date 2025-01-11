@@ -96,8 +96,7 @@ int Map::BFS(int bi, int bj, int vi, int vj) // BFS method
 
         numOfPaths--;
 
-        if (numOfPaths == 0)
-        {
+        if (numOfPaths == 0) {
             numOfPaths = updtNumOfPaths;
             updtNumOfPaths = 0;
             distance++;
@@ -163,8 +162,6 @@ bool Map::preference(int idB, int propose, int current)
     }
     return false;
 }
-
-
 
 void Map::GaleShapley(string fileName, bool testRun)
 {
