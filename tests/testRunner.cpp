@@ -377,6 +377,54 @@ void Tests::single_element_does_not_exist(){
     assert(ifExists(10, q) == false); 
 }
 
+void Tests::test_init_coord_of_visitors_vector() {
+    Map testMap(5, 5, 3);
+    
+    testMap.initCoordOfVisitorsVector();
+    
+    pair<int, int>* visitorCoords = testMap.getCoordsOfVisitors();
+    
+    assert(visitorCoords != nullptr);
+    
+    testMap.addCoordOfVisitor(0, 2, 3);
+    assert(visitorCoords[0].first == 2);
+    assert(visitorCoords[0].second == 3);
+}
+
+void Tests::test_init_coord_of_bikes_vector() {
+    Map testMap(5, 5, 3);
+    
+    testMap.initCoordOfBikesVector();
+    
+    pair<int, int>* bikeCoords = testMap.getCoordsOfBikes();
+    
+    assert(bikeCoords != nullptr);
+    
+    testMap.addCoordOfBike(0, 1, 4);
+    assert(bikeCoords[0].first == 1);
+    assert(bikeCoords[0].second == 4);
+}
+
+void Tests::test_update_visitors_preference_matrix() {
+    Map testMap(5, 5, 3);
+    
+    testMap.initVisitorsPreferenceMatrix();
+    
+    testMap.updateVisitorsPreferenceMatrix(0, 1, 2, 5); 
+    
+    pair<int, int>** prefMatrix = testMap.getVisitorsPreferenceMatrix();
+    
+    assert(prefMatrix[0][1].first == 2);   
+    assert(prefMatrix[0][1].second == 5);  
+    
+    testMap.updateVisitorsPreferenceMatrix(1, 0, 1, 3); 
+    
+    assert(prefMatrix[1][0].first == 1);   
+    assert(prefMatrix[1][0].second == 3); 
+    assert(prefMatrix[0][1].first == 2);   
+    assert(prefMatrix[0][1].second == 5);  
+}
+
 //--------------------------------------------------------------------------------------------------------------------//
 
 // SYSTEM/INTEGRATION TESTS
@@ -721,6 +769,12 @@ int main(int argc, char** argv) {
     tests.single_element_exists();
 
     tests.single_element_does_not_exist();
+
+    tests.test_init_coord_of_visitors_vector();
+
+    tests.test_init_coord_of_bikes_vector();
+
+    tests.test_update_visitors_preference_matrix();
 
     cout << "Success! All unit tests passed!" << "\n";
 

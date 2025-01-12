@@ -116,6 +116,12 @@ class Tests
 
         void single_element_does_not_exist();
 
+        void test_init_coord_of_visitors_vector();
+
+        void test_init_coord_of_bikes_vector();
+
+        void test_update_visitors_preference_matrix();
+
         // *1*
         void test_basic_matching_no_obstacles();
 
