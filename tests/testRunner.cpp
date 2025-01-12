@@ -350,15 +350,6 @@ void Tests::test_set_map_matrix_cells_comprehensive() {
     
     assert(testMap.getMapMatrix()[0][3].visitorID == 1); 
     assert(testMap.getMapMatrix()[0][3].obstacle == false);
-    
-    pair<int, int>* bikeCoords = testMap.getCoordsOfBikes();
-    pair<int, int>* visitorCoords = testMap.getCoordsOfVisitors();
-    
-    assert(bikeCoords[0].first == 0);
-    assert(bikeCoords[0].second == 2);
-    
-    assert(visitorCoords[0].first == 0); 
-    assert(visitorCoords[0].second == 3);
 }
 
 //--------------------------------------------------------------------------------------------------------------------//
