@@ -328,6 +328,39 @@ void Tests::test_change_map_matrix_cell(Map* map) {
     assert(_map->mapMatrix[2][3].bikeID == 2);
 }
 
+void Tests::test_set_map_matrix_cells_comprehensive() {
+    string testInput = "4\n4 4\n*-1a\n2-*b\nc3*-\n4d**\n";
+    stringstream inputStream(testInput);
+    
+    string line;
+    getline(inputStream, line);  
+    getline(inputStream, line); 
+    
+    Map testMap(4, 4, 4);
+    setMapMatrixCells(inputStream, testMap, 4, 4, 4);
+    
+    assert(testMap.getMapMatrix()[0][0].obstacle == false);
+    assert(testMap.getMapMatrix()[0][0].bikeID == -1);
+    assert(testMap.getMapMatrix()[0][0].visitorID == -1);
+    
+    assert(testMap.getMapMatrix()[0][1].obstacle == true);
+    
+    assert(testMap.getMapMatrix()[0][2].bikeID == 2); 
+    assert(testMap.getMapMatrix()[0][2].obstacle == false);
+    
+    assert(testMap.getMapMatrix()[0][3].visitorID == 1); 
+    assert(testMap.getMapMatrix()[0][3].obstacle == false);
+    
+    pair<int, int>* bikeCoords = testMap.getCoordsOfBikes();
+    pair<int, int>* visitorCoords = testMap.getCoordsOfVisitors();
+    
+    assert(bikeCoords[0].first == 0);
+    assert(bikeCoords[0].second == 2);
+    
+    assert(visitorCoords[0].first == 0); 
+    assert(visitorCoords[0].second == 3);
+}
+
 //--------------------------------------------------------------------------------------------------------------------//
 
 // SYSTEM/INTEGRATION TESTS
@@ -660,6 +693,8 @@ int main(int argc, char** argv) {
 
     // *30*
     tests.test_change_map_matrix_cell(map);
+
+    tests.test_set_map_matrix_cells_comprehensive();
 
     cout << "Success! All unit tests passed!" << "\n";
 

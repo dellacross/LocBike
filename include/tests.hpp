@@ -104,6 +104,8 @@ class Tests
         // *30*
         void test_change_map_matrix_cell(Map* map);
 
+        void test_set_map_matrix_cells_comprehensive();
+
         // *1*
         void test_basic_matching_no_obstacles();
 
