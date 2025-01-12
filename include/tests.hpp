@@ -106,6 +106,16 @@ class Tests
 
         void test_set_map_matrix_cells_comprehensive();
 
+        void empty_vector();
+
+        void element_exists();
+
+        void element_does_not_exist();
+
+        void single_element_exists();
+
+        void single_element_does_not_exist();
+
         // *1*
         void test_basic_matching_no_obstacles();
 

@@ -352,6 +352,31 @@ void Tests::test_set_map_matrix_cells_comprehensive() {
     assert(testMap.getMapMatrix()[0][3].obstacle == false);
 }
 
+void Tests::empty_vector() {
+    vector<int> q = {};
+    EXPECT_FALSE(ifExists(5, q));
+}
+
+void Tests::element_exists() {
+    vector<int> q = {1, 2, 3, 4, 5};
+    EXPECT_TRUE(ifExists(3, q));
+}
+
+void Tests::element_does_not_exist() {
+    vector<int> q = {1, 2, 3, 4, 5};
+    EXPECT_FALSE(ifExists(6, q)); 
+}
+
+void Tests::single_element_exists() {
+    vector<int> q = {10};
+    EXPECT_TRUE(ifExists(10, q));
+}
+
+void Tests::single_element_does_not_exist(){
+    vector<int> q = {20};
+    EXPECT_FALSE(ifExists(10, q)); 
+}
+
 //--------------------------------------------------------------------------------------------------------------------//
 
 // SYSTEM/INTEGRATION TESTS
@@ -686,6 +711,16 @@ int main(int argc, char** argv) {
     tests.test_change_map_matrix_cell(map);
 
     tests.test_set_map_matrix_cells_comprehensive();
+
+    tests.empty_vector();
+
+    tests.element_exists();
+
+    tests.element_does_not_exist();
+
+    tests.single_element_exists();
+
+    tests.single_element_does_not_exist();
 
     cout << "Success! All unit tests passed!" << "\n";
 
